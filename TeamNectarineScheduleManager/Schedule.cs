@@ -31,5 +31,12 @@ namespace TeamNectarineScheduleManager
             this.lunchStart = lunchStart;
             this.lunchEnd = lunchEnd;
         }
+
+        // methods
+        public override string ToString()
+        {
+            // use for printing the schedule in the console
+            throw new NotImplementedException();
+        }
     }
 }
