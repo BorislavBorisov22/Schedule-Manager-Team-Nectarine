@@ -49,6 +49,7 @@
     <Compile Include="Calendar.cs" />
     <Compile Include="CompanyCalendar.cs" />
     <Compile Include="ContractType.cs" />
+    <Compile Include="Day.cs" />
     <Compile Include="Employee.cs" />
     <Compile Include="EmployeeCalendar.cs" />
     <Compile Include="Month.cs" />
