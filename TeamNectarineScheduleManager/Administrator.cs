@@ -8,5 +8,6 @@ namespace TeamNectarineScheduleManager
 {
     class Administrator : Employee
     {
+
     }
 }

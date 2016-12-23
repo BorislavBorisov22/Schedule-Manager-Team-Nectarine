@@ -12,7 +12,7 @@ namespace TeamNectarineScheduleManager
 
         public Team()
         {
-            this.teamName = "Unknown team";
+            this.teamName = "Global team";
         }
 
         public Team(string teamName)

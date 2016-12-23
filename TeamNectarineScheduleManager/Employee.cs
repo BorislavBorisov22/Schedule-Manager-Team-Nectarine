@@ -8,15 +8,23 @@ namespace TeamNectarineScheduleManager
 {
     class Employee
     {
-        private Schedule defaultSchedule;
-        private Team team;
         private string username; // needed for log-in
         private string password; // needed for log-in
+        private EmployeeCalendar employeeCalendar;
+        private static CompanyCalendar companyCalendar = CompanyCalendar();
 
         public Employee()
         {
-            this.defaultSchedule = new Schedule();
-            this.team = new Team();
+            this.username = "username1234"; // default username & password
+            this.password = "password1234";
+            this.employeeCalendar = new EmployeeCalendar();
+        }
+
+        public Employee(string username, string password, EmployeeCalendar employeeCalendar)
+        {
+            this.username = username;
+            this.password = password;
+            this.employeeCalendar = employeeCalendar;
         }
     }
 }
