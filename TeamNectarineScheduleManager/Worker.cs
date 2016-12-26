@@ -9,11 +9,18 @@ namespace TeamNectarineScheduleManager
     class Worker : Employee
     {
         private Team team;
-        private ContractType contractType;
+        private ContractType contract;
 
         public Worker()
         {
-            this.contractType = ContractType.FullTime;
+            this.team = new Team();
+            this.contract = ContractType.FullTime;
+        }
+
+        public Worker(Team team, ContractType contract)
+        {
+            this.team = team;
+            this.contract = contract;
         }
 
     }

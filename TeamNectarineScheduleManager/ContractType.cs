@@ -12,5 +12,4 @@ namespace TeamNectarineScheduleManager
         PartTime6Hours,
         PartTime4Hours
     }
-
 }

@@ -8,6 +8,7 @@ namespace TeamNectarineScheduleManager
 {
     public enum DayOfWeek
     {
+ BogdanDimov/Ededdy's-Branch
         Monday = 1,
         Tuesday,
         Wednsday,
@@ -15,6 +16,11 @@ namespace TeamNectarineScheduleManager
         Friday,
         Saturday,
         Sunday
+
+        private static readonly DateTime[] officialHolidays; // initialize with dates of official holidays
+
+        public Calendar() { }
+ master
     }
     class Calendar : DailyEvents
     {
