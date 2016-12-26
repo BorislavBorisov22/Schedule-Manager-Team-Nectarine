@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TeamNectarineScheduleManager
 {
-    class TeamCalendar : Calendar
+    public class User
     {
+        private string username; // needed for log-in
+        private string password; // needed for log-in
     }
 }

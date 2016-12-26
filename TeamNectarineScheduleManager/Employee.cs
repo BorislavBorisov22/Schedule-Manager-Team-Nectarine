@@ -6,17 +6,24 @@ using System.Threading.Tasks;
 
 namespace TeamNectarineScheduleManager
 {
-    class Employee
+    public class Employee : User
     {
-        private Schedule defaultSchedule;
-        private Team team;
-        private string username; // needed for log-in
-        private string password; // needed for log-in
+
+        private PersonalCalendar employeeCalendar;
+        private CompanyCalendar companyCalendar;
 
         public Employee()
         {
-            this.defaultSchedule = new Schedule();
-            this.team = new Team();
+            //this.username = "username1234"; // default username & password
+            //this.password = "password1234";
+        }
+
+        public Employee(string username, string password, PersonalCalendar employeeCalendar, CompanyCalendar companyCalendar)
+        {
+            //this.username = username;
+            //this.password = password;
+            this.employeeCalendar = employeeCalendar;
+            this.companyCalendar = companyCalendar;
         }
     }
 }

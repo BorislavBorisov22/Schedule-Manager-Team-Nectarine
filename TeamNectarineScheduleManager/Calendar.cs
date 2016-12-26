@@ -8,8 +8,8 @@ namespace TeamNectarineScheduleManager
 {
     class Calendar
     {
-        private Month month;
-        private int week; // specify week number
-        private Day day;
+        private static readonly DateTime[] officialHolidays; // initialize with dates of official holidays
+
+        public Calendar() { }
     }
 }
