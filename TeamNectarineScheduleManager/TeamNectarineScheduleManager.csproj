@@ -49,11 +49,9 @@
     <Compile Include="Calendar.cs" />
     <Compile Include="CompanyCalendar.cs" />
     <Compile Include="ContractType.cs" />
- BogdanDimov/Ededdy's-Branch
     <Compile Include="DailyEvents.cs" />
 
     <Compile Include="Day.cs" />
- master
     <Compile Include="Employee.cs" />
     <Compile Include="PersonalCalendar.cs" />
     <Compile Include="Month.cs" />
