@@ -1,15 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-namespace TeamNectarineScheduleManager
+﻿namespace TeamNectarineScheduleManager
 {
+    using System;
+    using System.Collections.Generic;
     using Users;
 
     public class Start
     {
         public static void Main()
         {
-            Test_Workers_And_Admins_Instances();
+            // Test Team class
+            Test_Team_Class();
+            // Test_Workers_And_Admins_Instances();
+        }
+
+        public static void Test_Team_Class()
+        {
+            var teamLeader = new TeamLeaderWorker("IvanIvanov1", "0875123a", "Ivan", "Ivanov");
+            var teamMemeber = new RegularWorker("PepoPepov22", "14234123a", "Petar", "Petrov");
+            var anotherTeamMember = new RegularWorker("Vancheto_sladurancheto", "gjk654322232.", "Ivanka", "Vancheva");
+            var team = new Team("Nectarine", teamLeader);
+            team.AddMember(teamMemeber);
+            team.AddMember(anotherTeamMember);
+            foreach (var member in team.Members)
+            {
+                Console.WriteLine(member);
+                Console.WriteLine("--------");
+            }
         }
 
         public static void Test_Workers_And_Admins_Instances()
@@ -26,7 +42,7 @@ namespace TeamNectarineScheduleManager
                 Console.WriteLine(employee);
                 Console.WriteLine("==================");
             }
-            
+
         }
     }
 }

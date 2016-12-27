@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace TeamNectarineScheduleManager.Users
+﻿namespace TeamNectarineScheduleManager.Users
 {
+    using System;
+
     public abstract class User : Iloggable
     {
         private string username; // needed for log-in
@@ -33,7 +33,7 @@ namespace TeamNectarineScheduleManager.Users
             {
                 return new string('*', this.password.Length);
             }
-            
+
             private set
             {
                 if (!IsPasswodValid(value))
