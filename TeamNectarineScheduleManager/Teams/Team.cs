@@ -4,7 +4,7 @@
     using System.Text;
     using Users;
 
-    // the team class holds a sequence of memebers and a team leader and has two basic 
+    // the team class holds a sequence of members and a team leader and has two basic 
     // functionalities -> adding a member to the team and removing a member from the team
     // TO DO: add a calnedar for the team that includes the duties of all of the 
     // team members in the team

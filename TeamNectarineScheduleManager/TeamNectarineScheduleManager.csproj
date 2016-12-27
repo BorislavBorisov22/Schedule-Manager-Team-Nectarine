@@ -43,14 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activities\Activity.cs" />
-    <Compile Include="Activities\ActivityType.cs" />
     <Compile Include="Calendars\DayOfWeek.cs" />
     <Compile Include="Calendars\Events.cs" />
     <Compile Include="Users\Administrator.cs" />
     <Compile Include="Calendars\Calendar.cs" />
     <Compile Include="Calendars\CompanyCalendar.cs" />
-    <Compile Include="ContractType.cs" />
+    <Compile Include="Contract\ContractType.cs" />
     <Compile Include="Calendars\DailyEvents.cs" />
     <Compile Include="Calendars\Day.cs" />
     <Compile Include="Users\Employee.cs" />
@@ -58,7 +56,7 @@
     <Compile Include="Calendars\Month.cs" />
     <Compile Include="Start.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Team.cs" />
+    <Compile Include="Teams\Team.cs" />
     <Compile Include="Users\IEmployee.cs" />
     <Compile Include="Users\Iloggable.cs" />
     <Compile Include="Users\RegularWorker.cs" />
