@@ -1,7 +1,6 @@
 ﻿namespace TeamNectarineScheduleManager.Users
 {
     using System;
-    using System.Security;
 
     public abstract class User : Iloggable
     {

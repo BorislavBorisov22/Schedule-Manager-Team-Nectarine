@@ -1,7 +1,6 @@
 ﻿namespace TeamNectarineScheduleManager
 {
     using System.Collections.Generic;
-    using System.Text;
     using Users;
 
     // the team class holds a sequence of members and a team leader and has two basic 

@@ -1,7 +1,6 @@
 ﻿namespace TeamNectarineScheduleManager.Users
 {
     // using TeamCalendars;
-    using System.Security;
 
     public class Worker : Employee, Iloggable, IEmployee
     {
@@ -12,7 +11,6 @@
         public Worker(string username, string password, string firstName, string lastName)
             : base(username, password, firstName, lastName)
         {
-
         }
     }
 }

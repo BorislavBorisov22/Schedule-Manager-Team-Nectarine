@@ -2,8 +2,7 @@
 {
     using System;
     using System.IO;
-    using System.Security;
-    using TeamNectarineScheduleManager.Users;
+    using Users;
 
     public static class UI
     {
@@ -95,7 +94,9 @@
                         DisplayScheduleWeek(worker, weekNumber);
                         break;
                     case ConsoleKey.D3:
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("Log-out success!");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
                         ShowMainMenu();
                         break;
                     case ConsoleKey.Escape:
@@ -160,7 +161,6 @@
                 }
                 else
                 {
-                    //pwd.Append(cki.KeyChar);
                     pwd = pwd + cki.KeyChar;
                     Console.Write("*");
                 }

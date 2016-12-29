@@ -1,7 +1,5 @@
 ﻿namespace TeamNectarineScheduleManager.Users
 {
-    using System;
-
     public class Administrator : Employee, Iloggable, IEmployee
     {
         public Administrator(string username, string password, string firstName, string lastName) 

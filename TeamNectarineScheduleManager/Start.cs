@@ -35,8 +35,8 @@
             List<Employee> employees = new List<Employee>()
             {
                 new Administrator("Vankata_123", "089393929aa", "Ivan", "Ivanov"),
-                new RegularWorker("DeqnStanisl","sexy_pich12549","Deqn","Stanislavov"),
-                new TeamLeaderWorker("Peshotron2000","1234322Abcde","Petar", "Petrov")
+                new RegularWorker("DeqnStanisl", "sexy_pich12549", "Deqn", "Stanislavov"),
+                new TeamLeaderWorker("Peshotron2000", "1234322Abcde", "Petar", "Petrov")
             };
 
             foreach (var employee in employees)
@@ -44,7 +44,6 @@
                 Console.WriteLine(employee);
                 Console.WriteLine("==================");
             }
-
         }
     }
 }

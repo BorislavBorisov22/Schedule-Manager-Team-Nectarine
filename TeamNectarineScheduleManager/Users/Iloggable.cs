@@ -3,6 +3,7 @@
     public interface Iloggable
     {
         string Username { get; }
+
         string Password { get; }
     }
 }
