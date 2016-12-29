@@ -1,6 +1,7 @@
 ﻿namespace TeamNectarineScheduleManager.Users
 {
     using System;
+    using System.Security;
 
     public abstract class Employee : User, Iloggable
     {
@@ -52,7 +53,7 @@
 
         public override string ToString()
         {
-            return base.ToString() + string.Format("\nName: {0} {1}",this.FirstName, this.LastName);
+            return base.ToString() + string.Format("\nName: {0} {1}", this.FirstName, this.LastName);
         }
 
         private bool IsNameValid(string name)

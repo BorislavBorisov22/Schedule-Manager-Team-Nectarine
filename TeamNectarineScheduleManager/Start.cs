@@ -3,13 +3,15 @@
     using System;
     using System.Collections.Generic;
     using Users;
+    using UserInterface;
 
     public class Start
     {
         public static void Main()
         {
+            UI.ShowMainMenu();
             // Test Team class
-            Test_Team_Class();
+            //Test_Team_Class();
             // Test_Workers_And_Admins_Instances();
         }
 
