@@ -2,7 +2,7 @@
 {
     // using TeamCalendars;
 
-    public class Worker : Employee, Iloggable, IEmployee
+    public class Worker : Employee, ILoggable, IEmployee
     {
         private Team team;
         private ContractType contract;

@@ -1,6 +1,6 @@
 ﻿namespace TeamNectarineScheduleManager.Users
 {
-    public interface Iloggable
+    public interface ILoggable
     {
         string Username { get; }
 

@@ -2,7 +2,7 @@
 {
     using System;
 
-    public abstract class User : Iloggable
+    public abstract class User : ILoggable
     {
         private string username; // needed for log-in
         private string password; // needed for log-in
@@ -36,7 +36,7 @@
 
             private set
             {
-                if (!IsPasswodValid(value))
+                if (!IsPasswordValid(value))
                 {
                     throw new ArgumentException("Invalid password! Password should contain at least one letter symbol and at least 5 digit symbols");
                 }
@@ -69,7 +69,7 @@
             return true;
         }
 
-        private bool IsPasswodValid(string password)
+        private bool IsPasswordValid(string password)
         {
             int lettersCount = 0;
             int digitsCount = 0;
@@ -86,7 +86,7 @@
                 }
             }
 
-            if (lettersCount < 1 && digitsCount < 5)
+            if (lettersCount < 1 || digitsCount < 5)
             {
                 return false;
             }

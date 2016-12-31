@@ -2,7 +2,7 @@
 {
     using System;
 
-    public abstract class Employee : User, Iloggable
+    public abstract class Employee : User, ILoggable
     {
         private string firstName;
         private string lastName;
@@ -23,9 +23,9 @@
 
             private set
             {
-                if (IsNameValid(value))
+                if (!IsNameValid(value))
                 {
-                    throw new ArgumentException("Invalid first name! Each name of a person shoul be at least two symbols long and contain only letter symbols");
+                    throw new ArgumentException("Invalid first name! Each name of a person should be at least two symbols long and contain only letter symbols");
                 }
 
                 this.firstName = value;
@@ -41,9 +41,9 @@
 
             private set
             {
-                if (IsNameValid(value))
+                if (!IsNameValid(value))
                 {
-                    throw new ArgumentException("Invalid last name! Each name of a person shoul be at least two symbols long and contain only letter symbols");
+                    throw new ArgumentException("Invalid last name! Each name of a person should be at least two symbols long and contain only letter symbols");
                 }
 
                 this.lastName = value;
@@ -64,7 +64,7 @@
 
             foreach (var symbol in name)
             {
-                if (char.IsLetter(symbol))
+                if (!char.IsLetter(symbol))
                 {
                     return false;
                 }
