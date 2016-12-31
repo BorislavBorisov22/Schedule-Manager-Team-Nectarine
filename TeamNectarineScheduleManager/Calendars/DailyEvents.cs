@@ -8,6 +8,10 @@
         private DateTime _eventStart;
         private DateTime _eventLenght;
 
+        public DailyEvents()
+        {
+
+        }
         public DailyEvents(DateTime eventStart, DateTime eventLenght, Events currentEvent = Events.offDuty)
         {
             this._event = currentEvent;
