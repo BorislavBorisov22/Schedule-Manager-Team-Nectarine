@@ -1,4 +1,4 @@
-﻿namespace TeamNectarineScheduleManager.DataBaseLibrary
+﻿namespace TeamNectarineScheduleManager.Users
 {
     public enum UserType
     {
