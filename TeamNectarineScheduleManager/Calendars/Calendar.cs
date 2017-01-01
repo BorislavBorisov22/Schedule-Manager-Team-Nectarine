@@ -3,13 +3,18 @@
     using System;
     using System.Collections.Generic;
 
-    public class Calendar : DailyEvents
+    public class Calendar
     {
         private Month _month;
         private int _week; // specify week number, must be between 1 and 53 inclusive
         private DayOfWeek _day;
         public List<DailyEvents> _employeeDailyEvents;//Creates list of with events for the current calendar.
         private static readonly DateTime[] officialHolidays; // initialize with dates of official holidays
+
+        public Calendar()
+        {
+
+        }
 
         public Calendar(Month month, int week, DayOfWeek day)
         {

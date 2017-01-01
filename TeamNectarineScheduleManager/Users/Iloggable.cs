@@ -5,5 +5,7 @@
         string Username { get; }
 
         string Password { get; }
+
+        UserType UserType { get; }
     }
 }

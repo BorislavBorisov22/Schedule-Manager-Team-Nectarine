@@ -3,10 +3,18 @@
     using System;
 
     [Serializable()]
+
     public abstract class User : ILoggable
     {
-        private string username; // needed for log-in
-        private string password; // needed for log-in
+        // needed for log-in
+        private string username;
+        private string password;
+
+        public User(string username, string password)
+        {
+            this.Username = username;
+            this.Password = password;
+        }
 
         public string Username
         {
@@ -46,12 +54,8 @@
             }
         }
 
-        public User(string username, string password)
-        {
-            this.Username = username;
-            this.Password = password;
-        }
-
+        public UserType UserType { get; protected set; }
+        
         private bool IsUsernameValid(string name)
         {
             if (name.Length < 5)

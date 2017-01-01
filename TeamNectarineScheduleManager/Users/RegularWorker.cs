@@ -6,5 +6,6 @@
             : base(username, password, firstName, lastName)
         {
         }
+
     }
 }
