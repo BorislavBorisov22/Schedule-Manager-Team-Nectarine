@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Calendars\DayOfWeek.cs" />
     <Compile Include="Calendars\Events.cs" />
+    <Compile Include="UI\StringExtensions.cs" />
     <Compile Include="UI\UI.cs" />
     <Compile Include="Users\Administrator.cs" />
     <Compile Include="Calendars\Calendar.cs" />
