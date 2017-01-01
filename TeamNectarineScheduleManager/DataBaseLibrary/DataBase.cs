@@ -31,7 +31,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 }
                 // Create coresponding file name.
 
-                string fileName = string.Format("{0}\\W{1}.bin", dataDir, "testing");
+                string fileName = string.Format("{0}\\W{1}.bin", dataDir, worker.Username);
                 // Assign filestream to a new file with the file name.
                 Stream stream = File.Create(fileName);
                 // Init formatter, write  to disk and close the stream.
