@@ -1,5 +1,6 @@
 ﻿namespace TeamNectarineScheduleManager.Users
 {
+    [Serializable()]
     public class Administrator : Employee, ILoggable, IEmployee
     {
         public Administrator(string username, string password, string firstName, string lastName) 
