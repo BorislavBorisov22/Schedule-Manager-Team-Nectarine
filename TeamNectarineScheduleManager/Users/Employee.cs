@@ -2,6 +2,7 @@
 {
     using System;
 
+    [Serializable()]
     public abstract class Employee : User, ILoggable
     {
         private string firstName;

@@ -2,6 +2,7 @@
 {
     // using TeamCalendars;
 
+    [Serializable()]
     public class Worker : Employee, ILoggable, IEmployee
     {
         private Team team;
