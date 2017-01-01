@@ -4,7 +4,7 @@
     {
         Monday = 1,
         Tuesday,
-        Wednsday,
+        Wednesday,
         Thursday,
         Friday,
         Saturday,
