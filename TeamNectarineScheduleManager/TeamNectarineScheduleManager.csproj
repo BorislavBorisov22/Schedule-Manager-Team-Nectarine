@@ -49,9 +49,8 @@
     <Compile Include="Users\Administrator.cs" />
     <Compile Include="Calendars\Calendar.cs" />
     <Compile Include="Calendars\CompanyCalendar.cs" />
-    <Compile Include="Contract\ContractType.cs" />
+    <Compile Include="Contracts\ContractType.cs" />
     <Compile Include="Calendars\DailyEvents.cs" />
-    <Compile Include="Calendars\Day.cs" />
     <Compile Include="Users\Employee.cs" />
     <Compile Include="Calendars\PersonalCalendar.cs" />
     <Compile Include="Calendars\Month.cs" />
@@ -63,6 +62,7 @@
     <Compile Include="Users\RegularWorker.cs" />
     <Compile Include="Users\TeamLeaderWorker.cs" />
     <Compile Include="Users\User.cs" />
+    <Compile Include="Users\UserType.cs" />
     <Compile Include="Users\Worker.cs" />
   </ItemGroup>
   <ItemGroup>
