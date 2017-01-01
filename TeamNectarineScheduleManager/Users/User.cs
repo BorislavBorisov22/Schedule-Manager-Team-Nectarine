@@ -2,6 +2,7 @@
 {
     using System;
 
+    [Serializable()]
     public abstract class User : ILoggable
     {
         private string username; // needed for log-in
