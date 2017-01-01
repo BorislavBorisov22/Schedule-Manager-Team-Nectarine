@@ -14,6 +14,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         private static string custDir = "Data\\Custom";
         private static Exception excFileNotFound = new Exception("No file corresponds to the given input.");
         private static Exception excIOError = new Exception("Input/Output error.");
+        private static Exception excNullReference = new Exception("Null reference.");
         #endregion
 
         // Methods
@@ -21,10 +22,16 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// <summary>
         /// Saves a worker object on the hard drive, so it can be loaded later.
         /// </summary>
-        public static void WriteToDisk(Worker worker)
+        public static void WriteToDisc(Worker worker)
         {
+            if (object.ReferenceEquals(worker, null))
+            {
+                
+            }
+
             try
             {
+
                 if (!Directory.Exists(dataDir))
                 {
                     Directory.CreateDirectory(dataDir);
@@ -34,7 +41,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 string fileName = string.Format("{0}\\W{1}.bin", dataDir, worker.Username);
                 // Assign filestream to a new file with the file name.
                 Stream stream = File.Create(fileName);
-                // Init formatter, write  to disk and close the stream.
+                // Init formatter, write  to disc and close the stream.
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(stream, worker);
                 stream.Close();
@@ -48,7 +55,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// <summary>
         /// Saves an admin object on the hard drive, so it can be loaded later.
         /// </summary>
-        public static void WriteToDisk(Administrator administrator)
+        public static void WriteToDisc(Administrator administrator)
         {
             try
             {
@@ -56,12 +63,12 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 {
                     Directory.CreateDirectory(custDir);
                 }
-                // Create coresponding file name.
 
+                // Create coresponding file name.
                 string fileName = string.Format("{0}\\A{1}", custDir, administrator.Username);
                 // Assign filestream to a new file with the file name.
                 Stream stream = File.Create(fileName);
-                // Init formatter, write  to disk and close the stream.
+                // Init formatter, write  to disc and close the stream.
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(stream, fileName);
                 stream.Close();
@@ -73,11 +80,11 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         }
 
         /// <summary>
-        /// Loads a worker object from the disk.
+        /// Loads a worker object from the disc.
         /// </summary>
         /// <param name="userName">The name of the worker.</param>
         /// <returns></returns>
-        public static Worker ReadFromDiskWorker(string userName)
+        public static Worker ReadFromDiscWorker(string userName)
         {
             try
             {
@@ -104,11 +111,11 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         }
 
         /// <summary>
-        /// Loads an admin object from the disk.
+        /// Loads an admin object from the disc.
         /// </summary>
         /// <param name="userName">The name of the admin.</param>
         /// <returns></returns>
-        public static Administrator ReadFromDiskAdmin(string userName)
+        public static Administrator ReadFromDiscAdmin(string userName)
         {
             try
             {
@@ -139,7 +146,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// </summary>
         /// <param name="obj">The object to be saved.</param>
         /// <param name="fileName">The name of the file.</param>
-        public static void WriteToDiskGeneric(object obj, string fileName)
+        public static void WriteToDiscGeneric(object obj, string fileName)
         {
             try
             {
@@ -152,7 +159,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 fileName = string.Format("{0}\\{1}", custDir, fileName);
                 // Assign filestream to a new file with the file name.
                 Stream stream = File.Create(fileName);
-                // Init formatter, write  to disk and close the stream.
+                // Init formatter, write  to disc and close the stream.
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(stream, obj);
                 stream.Close();
@@ -168,7 +175,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// </summary>
         /// <param name="fileName">The name of the file, where the object is saved.</param>
         /// <returns></returns>
-        public static object ReadFromDiskGeneric(string fileName)
+        public static object ReadFromDiscGeneric(string fileName)
         {
             try
             {
@@ -213,7 +220,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         }
 
         /// <summary>
-        /// Returns a list of all of the workers, that are saved on the disk.
+        /// Returns a list of all of the workers, that are saved on the disc.
         /// </summary>
         /// <returns></returns>
         public static List<Worker> GetAllWorkers()
@@ -236,7 +243,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         }
 
         /// <summary>
-        /// Returns a list of all of the admins, that are saved on the disk.
+        /// Returns a list of all of the admins, that are saved on the disc.
         /// </summary>
         /// <returns></returns>
         public static List<Administrator> GetAllAdmins()
@@ -259,7 +266,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         }
 
         /// <summary>
-        /// Returns a list of the user names from all of the users, that are saved on the disk.
+        /// Returns a list of the user names from all of the users, that are saved on the disc.
         /// </summary>
         /// <returns></returns>
         public static List<string> GetAllUserNames()
@@ -279,7 +286,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         }
 
         /// <summary>
-        /// Checks if the given login data matches any user, saved on the disk.
+        /// Checks if the given login data matches any user, saved on the disc.
         /// </summary>
         /// <param name="userName">The name of the user.</param>
         /// <param name="password">The password of the user.</param>
@@ -310,7 +317,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         }
 
         /// <summary>
-        /// Returns UserType.Admin if an admin with the given user name exists on the disk, and UserType.Worker if a worker with the given user name exists on the disk. Returns UserType.Unknown if there isn't a user with that name on the disk.
+        /// Returns UserType.Admin if an admin with the given user name exists on the disc, and UserType.Worker if a worker with the given user name exists on the disc. Returns UserType.Unknown if there isn't a user with that name on the disc.
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
@@ -326,6 +333,30 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
             }
             return UserType.Unknown;
         }
+
+        private static T DeepCopy<T>(T source)
+        {
+            if (!typeof(T).IsSerializable)
+            {
+                throw new ArgumentException("The type must be serializable.");
+            }
+
+            // Don't serialize a null object, simply return the default for that object
+            if (Object.ReferenceEquals(source, null))
+            {
+                return default(T);
+            }
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            Stream stream = new MemoryStream();
+            using (stream)
+            {
+                formatter.Serialize(stream, source);
+                stream.Seek(0, SeekOrigin.Begin);
+                return (T)formatter.Deserialize(stream);
+            }
+        }
+
         #endregion
     }
 }
