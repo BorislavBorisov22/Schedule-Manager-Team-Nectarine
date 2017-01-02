@@ -28,13 +28,9 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         public static void WriteToDisc(Worker worker)
         {
             if (object.ReferenceEquals(worker, null))
-            {
-
-            }
-
+            { }
             try
             {
-
                 if (!Directory.Exists(dataDir))
                 {
                     Directory.CreateDirectory(dataDir);
@@ -73,7 +69,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 Stream stream = File.Create(fileName);
                 // Init formatter, write  to disc and close the stream.
                 BinaryFormatter formatter = new BinaryFormatter();
-                formatter.Serialize(stream, fileName);
+                formatter.Serialize(stream, administrator);
                 stream.Close();
             }
             catch
@@ -127,11 +123,13 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 // Check if the file exists;
                 if (File.Exists(fileNameWorker))
                 {
-                    Stream stream = File.OpenRead(fileNameWorker);
-                    BinaryFormatter formatter = new BinaryFormatter();
-                    Administrator result = (Administrator)formatter.Deserialize(stream);
-                    stream.Close();
-                    return result;
+                    using (Stream stream = File.OpenRead(fileNameWorker))
+                    {
+                        BinaryFormatter formatter = new BinaryFormatter();
+                        Administrator result = (Administrator)formatter.Deserialize(stream);
+                        stream.Close();
+                        return result;
+                    }
                 }
                 else
                 {
@@ -212,16 +210,13 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         {
             try
             {
-                if (UserExists(userName))
+                if (File.Exists(string.Format("{0}\\A{1}.bin", dataDir, userName)))
                 {
-                    if (GetUserType(userName) == UserType.Admin)
-                    {
-                        File.Delete(string.Format("{0}\\A{1}bin", dataDir, userName));
-                    }
-                    else if (GetUserType(userName) == UserType.Worker)
-                    {
-                        File.Delete(string.Format("{0}\\A{1}bin", dataDir, userName));
-                    }
+                    File.Delete(string.Format("{0}\\A{1}.bin", dataDir, userName));
+                }
+                if (File.Exists(string.Format("{0}\\W{1}.bin", dataDir, userName)))
+                {
+                    File.Delete(string.Format("{0}\\W{1}.bin", dataDir, userName));
                 }
             }
             catch
@@ -385,50 +380,53 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// </summary>
         public static void ClearCorruptedUserFiles()
         {
-            foreach (var fileName in Directory.GetFiles(dataDir))
-            {
-                try
-                {
+            throw new NotImplementedException();
+            //foreach (var fileName in Directory.GetFiles(dataDir))
+            //{
+            //    try
+            //    {
+            //        string userName = ExtractUserNameFromFileName(fileName, true);
 
-                    if (fileName[0] == 'A')
-                    {
-                        try
-                        {
-                            string userName = fileName.Substring(fileName.LastIndexOf('\\') + 1, fileName.Length - fileName.LastIndexOf('\\') - 6);
-                            Administrator admin = ReadFromDiscAdmin(userName);
-                            if (admin.Username != userName)
-                            {
-                                File.Delete(string.Format("{0}\\{1}", dataDir, fileName));
-                            }
-                        }
-                        catch
-                        {
-                            File.Delete(string.Format("{0}\\{1}", dataDir, fileName));
-                        }
-                    }
-                    else if (fileName[0] == 'W')
-                    {
-                        try
-                        {
-                            string userName = fileName.Substring(fileName.LastIndexOf('\\') + 1, fileName.Length - fileName.LastIndexOf('\\') - 6);
-                            Worker worker = ReadFromDiscWorker(userName);
-                            if (worker.Username != userName)
-                            {
-                                File.Delete(string.Format("{0}\\{1}", dataDir, fileName));
-                            }
-                        }
-                        catch
-                        {
-                            File.Delete(string.Format("{0}\\{1}", dataDir, fileName));
-                        }
-                    }
-                    else
-                    {
-                        File.Delete(string.Format("{0}\\{1}", dataDir, fileName));
-                    }
-                }
-                catch { }
-            }
+            //        if (userName[0] == 'A')
+            //        {
+            //            userName = ExtractUserNameFromFileName(userName, false);
+            //            try
+            //            {
+
+            //                Administrator admin = ReadFromDiscAdmin(userName);
+            //                if (admin.Username != userName)
+            //                {
+            //                    File.Delete(string.Format("{0}\\A{1}.bin", dataDir, userName));
+            //                }
+            //            }
+            //            catch
+            //            {
+            //                File.Delete(string.Format("{0}\\A{1}.bin", dataDir, userName));
+            //            }
+            //        }
+            //        else if (userName[0] == 'W')
+            //        {
+            //            userName = ExtractUserNameFromFileName(userName, false);
+            //            try
+            //            {
+            //                Worker worker = ReadFromDiscWorker(userName);
+            //                if (worker.Username != userName)
+            //                {
+            //                    File.Delete(string.Format("{0}\\W{1}.bin", dataDir, userName));
+            //                }
+            //            }
+            //            catch
+            //            {
+            //                File.Delete(string.Format("{0}\\W{1}.bin", dataDir, userName));
+            //            }
+            //        }
+            //        else
+            //        {
+            //            File.Delete(string.Format("{0}\\{1}.bin", dataDir, userName));
+            //        }
+            //    }
+            //    catch { }
+            //}
         }
 
         /// <summary>
@@ -526,6 +524,24 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 return UserType.Worker;
             }
             return UserType.Unknown;
+        }
+
+
+        private static string ExtractUserNameFromFileName(string fileName, bool preserveUserTypeChar)
+        {
+            if (preserveUserTypeChar == true)
+            {
+                fileName = fileName.Remove(0, fileName.LastIndexOf('\\') + 1);
+            }
+            else
+            {
+                fileName = fileName.Remove(0, fileName.LastIndexOf('\\') + 2);
+            }
+            if (fileName.LastIndexOf(".bin") != -1)
+            {
+                fileName = fileName.Remove(fileName.LastIndexOf(".bin"));
+            }
+            return fileName;
         }
 
         private static T DeepCopy<T>(T source)
