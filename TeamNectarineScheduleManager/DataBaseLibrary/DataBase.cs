@@ -8,6 +8,9 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
 {
     public static class DataBase
     {
+        //public static List<Worker> GetAllWorkersPending() returns a list of all of the workers on disc with pending calendars
+        //public static void MigrateDataBase(string newDirectory) also check if there is already such a directory and if there are already files with same names in it.
+
         // Fields
         #region
         private static string dataDir = "Data";
@@ -26,7 +29,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         {
             if (object.ReferenceEquals(worker, null))
             {
-                
+
             }
 
             try
@@ -36,7 +39,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 {
                     Directory.CreateDirectory(dataDir);
                 }
-                // Create coresponding file name.
+                // Create corresponding file name.
 
                 string fileName = string.Format("{0}\\W{1}.bin", dataDir, worker.Username);
                 // Assign filestream to a new file with the file name.
@@ -64,8 +67,8 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                     Directory.CreateDirectory(custDir);
                 }
 
-                // Create coresponding file name.
-                string fileName = string.Format("{0}\\A{1}", custDir, administrator.Username);
+                // Create corresponding file name.
+                string fileName = string.Format("{0}\\A{1}.bin", dataDir, administrator.Username);
                 // Assign filestream to a new file with the file name.
                 Stream stream = File.Create(fileName);
                 // Init formatter, write  to disc and close the stream.
@@ -88,7 +91,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         {
             try
             {
-                // Create coresponding file name.
+                // Create corresponding file name.
                 string fileNameWorker = string.Format("{0}\\W{1}.bin", dataDir, userName);
                 // Check if the file exists;
                 if (File.Exists(fileNameWorker))
@@ -119,7 +122,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         {
             try
             {
-                // Create coresponding file name.
+                // Create corresponding file name.
                 string fileNameWorker = string.Format("{0}\\A{1}.bin", dataDir, userName);
                 // Check if the file exists;
                 if (File.Exists(fileNameWorker))
@@ -154,11 +157,11 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 {
                     Directory.CreateDirectory(custDir);
                 }
-                // Create coresponding file name.
+                // Create corresponding file name.
 
-                fileName = string.Format("{0}\\{1}", custDir, fileName);
+                string fullFileName = string.Format("{0}\\{1}", custDir, fileName);
                 // Assign filestream to a new file with the file name.
-                Stream stream = File.Create(fileName);
+                Stream stream = File.Create(fullFileName);
                 // Init formatter, write  to disc and close the stream.
                 BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(stream, obj);
@@ -179,7 +182,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         {
             try
             {
-                // Create coresponding file name.
+                // Create corresponding file name.
                 fileName = string.Format("{0}\\{1}", custDir, fileName);
                 // Check if the file exists;
                 if (File.Exists(fileName))
@@ -199,6 +202,48 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
             {
                 throw excIOError;
             }
+        }
+
+        /// <summary>
+        /// Deletes the file, storing this user.
+        /// </summary>
+        /// <param name="userName"></param>
+        public static void DeleteUserFromDisc(string userName)
+        {
+            try
+            {
+                if (UserExists(userName))
+                {
+                    if (GetUserType(userName) == UserType.Admin)
+                    {
+                        File.Delete(string.Format("{0}\\A{1}bin", dataDir, userName));
+                    }
+                    else if (GetUserType(userName) == UserType.Worker)
+                    {
+                        File.Delete(string.Format("{0}\\A{1}bin", dataDir, userName));
+                    }
+                }
+            }
+            catch
+            {
+                throw excIOError;
+            }
+        }
+
+        /// <summary>
+        /// Deletes the file, storing this user.
+        /// </summary>
+        public static void DeleteUserFromDisc(Administrator admin)
+        {
+            DeleteUserFromDisc(admin.Username);
+        }
+
+        /// <summary>
+        /// Deletes the file, storing this user.
+        /// </summary>
+        public static void DeleteUserFromDisc(Worker worker)
+        {
+            DeleteUserFromDisc(worker.Username);
         }
 
         /// <summary>
@@ -293,22 +338,23 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// <returns></returns>
         public static bool IsValidLoginData(string userName, string password)
         {
-            List<Worker> allWorkers = GetAllWorkers();
-            List<Administrator> allAdmins = GetAllAdmins();
-
-            // Check wokers
-            foreach (var worker in allWorkers)
+            // check admins
+            if (File.Exists(string.Format("{0}\\A{1}.bin", dataDir, userName)))
             {
-                if (worker.Username == userName && worker.Password == password)
+                if (ReadFromDiscAdmin(userName).Password == password)
                 {
                     return true;
                 }
+                else
+                {
+                    return false;
+                }
             }
 
-            // check admins
-            foreach (var admin in allAdmins)
+            // Check wokers
+            else if (File.Exists(string.Format("{0}\\W{1}.bin", dataDir, userName)))
             {
-                if (admin.Username == userName && admin.Password == password)
+                if (ReadFromDiscWorker(userName).Password == password)
                 {
                     return true;
                 }
@@ -317,9 +363,157 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         }
 
         /// <summary>
-        /// Returns UserType.Admin if an admin with the given user name exists on the disc, and UserType.Worker if a worker with the given user name exists on the disc. Returns UserType.Unknown if there isn't a user with that name on the disc.
+        /// Checks whether there is a user with the given name on the disc.
         /// </summary>
         /// <param name="userName"></param>
+        /// <returns></returns>
+        public static bool IsFreeUserName(string userName)
+        {
+            if ((!File.Exists(string.Format("{0}\\A{1}.bin", dataDir, userName)))
+                && (!File.Exists(string.Format("{0}\\W{1}.bin", dataDir, userName))))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Clears the Users data base from any corrupted user files and non-user files. 
+        /// </summary>
+        public static void ClearCorruptedUserFiles()
+        {
+            foreach (var fileName in Directory.GetFiles(dataDir))
+            {
+                try
+                {
+
+                    if (fileName[0] == 'A')
+                    {
+                        try
+                        {
+                            string userName = fileName.Substring(fileName.LastIndexOf('\\') + 1, fileName.Length - fileName.LastIndexOf('\\') - 6);
+                            Administrator admin = ReadFromDiscAdmin(userName);
+                            if (admin.Username != userName)
+                            {
+                                File.Delete(string.Format("{0}\\{1}", dataDir, fileName));
+                            }
+                        }
+                        catch
+                        {
+                            File.Delete(string.Format("{0}\\{1}", dataDir, fileName));
+                        }
+                    }
+                    else if (fileName[0] == 'W')
+                    {
+                        try
+                        {
+                            string userName = fileName.Substring(fileName.LastIndexOf('\\') + 1, fileName.Length - fileName.LastIndexOf('\\') - 6);
+                            Worker worker = ReadFromDiscWorker(userName);
+                            if (worker.Username != userName)
+                            {
+                                File.Delete(string.Format("{0}\\{1}", dataDir, fileName));
+                            }
+                        }
+                        catch
+                        {
+                            File.Delete(string.Format("{0}\\{1}", dataDir, fileName));
+                        }
+                    }
+                    else
+                    {
+                        File.Delete(string.Format("{0}\\{1}", dataDir, fileName));
+                    }
+                }
+                catch { }
+            }
+        }
+
+        /// <summary>
+        /// Checks whether a user file, corresponding to the given user name is wholesome.
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsUserFileWholesome(string userName)
+        {
+            // check admins
+            if (File.Exists(string.Format("{0}\\A{1}.bin", dataDir, userName)))
+            {
+                try
+                {
+                    ReadFromDiscAdmin(userName);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            // Check wokers
+            else if (File.Exists(string.Format("{0}\\W{1}.bin", dataDir, userName)))
+            {
+                try
+                {
+                    ReadFromDiscWorker(userName);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Checks whether a user file, corresponding to the given User is wholesome.
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsUserFileWholesome(Administrator admin)
+        {
+            // check admins
+            if (File.Exists(string.Format("{0}\\A{1}.bin", dataDir, admin.Username)))
+            {
+                try
+                {
+                    ReadFromDiscAdmin(admin.Username);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Checks whether a user file, corresponding to the given User is wholesome.
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsUserFileWholesome(Worker worker)
+        {
+            // check workers
+            if (File.Exists(string.Format("{0}\\W{1}.bin", dataDir, worker.Username)))
+            {
+                try
+                {
+                    ReadFromDiscWorker(worker.Username);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Returns UserType.Admin if an admin with the given user name exists on the disc, and UserType.Worker if a worker with the given user name exists on the disc. Returns UserType.Unknown if there isn't a user with that name on the disc.
+        /// </summary>
         /// <returns></returns>
         public static UserType GetUserType(string userName)
         {
@@ -341,7 +535,6 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 throw new ArgumentException("The type must be serializable.");
             }
 
-            // Don't serialize a null object, simply return the default for that object
             if (Object.ReferenceEquals(source, null))
             {
                 return default(T);
