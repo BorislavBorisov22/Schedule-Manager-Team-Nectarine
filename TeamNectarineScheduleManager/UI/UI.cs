@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using Users;
+    using ExtensionMethods;
 
     public static class UI
     {
@@ -196,12 +197,15 @@
 
         private static void DisplayScheduleWeek(Worker worker, int weekNumber)
         {
-            /// var weekSchedule  = DB.FindWeekSchedule(worker, week);
-            /// foreach(var activity in weekSchedule.Monday)
-            /// {
-            ///     Console.WriteLine(activity.name);
-            ///     Console.WriteLine(activity.duration);
-            /// }
+            //var weekSchedule = DataBase.FindWeekSchedule(worker, week);
+            //foreach (var day in weekSchedule)
+            //{
+            //    foreach (var activity in day)
+            //    {
+            //        Console.WriteLine(activity.name);
+            //        Console.WriteLine(activity.duration);
+            //    }
+            //}
 
             Console.WriteLine("╔".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╗");
             Console.WriteLine("║" + "MONDAY".PadBoth(19) + "║" + "TUESDAY".PadBoth(19) + "║" + "WEDNESDAY".PadBoth(19) + "║" + "THURSDAY".PadBoth(19) + "║" + "FRIDAY".PadBoth(19) + "║" + "SATURDAY".PadBoth(19) + "║" + "SUNDAY".PadBoth(19) + "║");
