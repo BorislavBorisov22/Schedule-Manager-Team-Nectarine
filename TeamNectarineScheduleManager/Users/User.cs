@@ -40,7 +40,7 @@
         {
             get
             {
-                return new string('*', this.password.Length);
+                return this.password;
             }
 
             private set
@@ -101,7 +101,7 @@
 
         public override string ToString()
         {
-            return string.Format("Username: {0}, Pass: {1}", this.Username, this.Password);
+            return string.Format("Username: {0}, Pass: {1}", this.Username, new string('*',this.password.Length));
         }
     }
 }
