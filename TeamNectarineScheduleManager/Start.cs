@@ -3,13 +3,26 @@
     using System;
     using System.Collections.Generic;
     using Users;
+    using DataBaseLibrary;
     using UserInterface;
+    using Calendars;
 
     public class Start
     {
         public static void Main()
         {
-            UI.ShowMainMenu();
+            var peshoWorker = new Worker("pesho555", "910011abc", "Pesho", "Stamatov");
+            var peshoCalendar = new PersonalCalendar();
+            peshoWorker.PersonCalendar = peshoCalendar;
+            DataBase.WriteToDisc(peshoWorker);
+
+            Worker pesho2 = DataBase.ReadFromDiscWorker("pesho555");
+            Console.WriteLine(pesho2.Username);
+            Console.WriteLine(pesho2.Password);
+            Console.WriteLine(pesho2.FirstName);
+            Console.WriteLine(pesho2.LastName);
+
+            //UI.ShowMainMenu();
             // Test Team class
             //Test_Team_Class();
             // Test_Workers_And_Admins_Instances();

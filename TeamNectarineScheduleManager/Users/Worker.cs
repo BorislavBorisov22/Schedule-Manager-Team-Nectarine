@@ -40,7 +40,7 @@
                 return this.personalCalendar;
             }
 
-            protected set
+            set
             {
                 ValidateNull(value, "Worker's personal calendar cannot be null!");
 
