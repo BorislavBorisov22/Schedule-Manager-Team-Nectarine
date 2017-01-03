@@ -2,6 +2,7 @@
 {
     using System;
 
+    [Serializable]
     public class DailyEvents
     {
         private Events _event;
@@ -12,6 +13,7 @@
         {
 
         }
+
         public DailyEvents(DateTime eventStart, DateTime eventLenght, Events currentEvent = Events.offDuty)
         {
             this._event = currentEvent;

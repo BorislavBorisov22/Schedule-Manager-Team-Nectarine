@@ -2,8 +2,7 @@
 {
     using System;
 
-    [Serializable()]
-
+    [Serializable]
     public abstract class User : ILoggable
     {
         // needed for log-in
@@ -55,7 +54,7 @@
         }
 
         public UserType UserType { get; protected set; }
-        
+
         private bool IsUsernameValid(string name)
         {
             if (name.Length < 5)
@@ -101,7 +100,7 @@
 
         public override string ToString()
         {
-            return string.Format("Username: {0}, Pass: {1}", this.Username, new string('*',this.password.Length));
+            return string.Format("Username: {0}, Pass: {1}", this.Username, new string('*', this.password.Length));
         }
     }
 }

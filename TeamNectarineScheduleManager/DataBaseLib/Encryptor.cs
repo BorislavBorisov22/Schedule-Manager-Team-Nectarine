@@ -13,7 +13,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         // 4. offset char num
         // 5. Reverse(if needed) 
         // 6. add decryption chars at the end.
-        
+
         #region
         private static byte[][] charLengthMode = new byte[][]{
             new byte[]{9, 6, 8, 3, 4, 2, 1, 5, 6, 4, 5, 8, 8, 3, 1, 7, 4, 6, 4, 1},
@@ -391,8 +391,8 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         {
             StringBuilder resultSB = new StringBuilder();
             resultSB.Append(sourceString);
-            for (int resultIndex = 0, sourceIndex = sourceString.Length - 1; 
-                (resultIndex < sourceString.Length) && (sourceIndex >= 0); 
+            for (int resultIndex = 0, sourceIndex = sourceString.Length - 1;
+                (resultIndex < sourceString.Length) && (sourceIndex >= 0);
                 resultIndex++, sourceIndex--)
             {
                 resultSB[sourceIndex] = sourceString[resultIndex];
@@ -401,7 +401,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         }
 
         public static string EncryptString(string sourceString)
-        {            
+        {
             char[] inputCharArray = sourceString.ToArray();
             string encryptionStr = "";
             StringBuilder encryptionSB = new StringBuilder();
@@ -417,8 +417,8 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
             // Handle Position offset.
             char offsetPositionKey = (char)rnd.Next(256);
             encryptionStr = OffsetPosition(encryptionSB.ToString(), (byte)offsetPositionKey);
- 
-            
+
+
             // Handle Char number offset.
             char offsetCharNumKey = (char)rnd.Next(256);
             encryptionStr = OffsetCharNum(encryptionStr, (byte)offsetCharNumKey);
@@ -430,7 +430,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
             {
                 encryptionStr = ReverseString(encryptionStr);
             }
-            
+
             // Build final string.
             encryptionSB.Clear();
             encryptionSB.Append(encryptionStr);
@@ -448,7 +448,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
             {
                 return "";
             }
-                        
+
             // Extract keys.
             char reverseKey = sourceString[sourceString.Length - 1];
             char offsetCharNumKey = sourceString[sourceString.Length - 2];
@@ -492,7 +492,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 bufferSB.Clear();
                 order++;
             }
-                        
+
             return resultSB.ToString(); ;
         }
     }
