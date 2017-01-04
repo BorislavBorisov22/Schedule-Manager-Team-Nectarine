@@ -5,6 +5,7 @@
     using Users;
     using DataBaseLibrary;
     using UserInterface;
+    using DataBaseLibrary;
     using Calendars;
 
     public class Start
@@ -57,6 +58,14 @@
                 Console.WriteLine(employee);
                 Console.WriteLine("==================");
             }
+        }
+
+        public static void TestDataBase()
+        {
+            Worker w = new Worker("Peter", "SpoonerStr00031", "Peter", "Griffin");
+            DataBase.WriteToDisc(w);
+            Worker w2 = DataBase.ReadFromDiscWorker("Peter");
+            Console.WriteLine($"{w2.FirstName} {w2.LastName}");
         }
     }
 }

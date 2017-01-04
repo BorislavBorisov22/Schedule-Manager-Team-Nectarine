@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    [Serializable]
+    [Serializable()]
     public class Calendar
     {
         private Month _month;

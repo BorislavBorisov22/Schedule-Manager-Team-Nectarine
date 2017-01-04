@@ -2,7 +2,7 @@
 {
     using System;
 
-    [Serializable]
+    [Serializable()]
     public class DailyEvents
     {
         private Events _event;
