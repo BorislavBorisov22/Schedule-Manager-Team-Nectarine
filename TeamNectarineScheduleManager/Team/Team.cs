@@ -8,7 +8,7 @@
     // functionalities -> adding a member to the team and removing a member from the team
     // TO DO: add a calendar for the team that includes the duties of all of the 
     // team members in the team
-    [Serializable()]
+    [Serializable]
     public class Team
     {
         private IList<Worker> members;
