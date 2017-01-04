@@ -13,6 +13,7 @@
         {
 
         }
+
         public DailyEvents(DateTime eventStart, DateTime eventLenght, Events currentEvent = Events.offDuty)
         {
             this._event = currentEvent;

@@ -1,11 +1,11 @@
-﻿namespace TeamNectarineScheduleManager.DataBaseLibrary
-{
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Runtime.Serialization.Formatters.Binary;
-    using TeamNectarineScheduleManager.Users;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using TeamNectarineScheduleManager.Users;
 
+namespace TeamNectarineScheduleManager.DataBaseLibrary
+{
     public static class DataBase
     {
         //public static List<Worker> GetAllWorkersPending() returns a list of all of the workers on disc with pending calendars
