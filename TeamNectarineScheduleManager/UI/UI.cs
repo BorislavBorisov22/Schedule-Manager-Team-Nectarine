@@ -1,12 +1,11 @@
 ﻿namespace TeamNectarineScheduleManager.UserInterface
 {
     using System;
-    using System.IO;
-    using Users;
-    using ExtensionMethods;
-    using DataBaseLibrary;
     using System.Collections.Generic;
-    using System.Text;
+    using System.IO;
+    using DataBaseLibrary;
+    using Table;
+    using Users;
 
     public static class UI
     {
@@ -205,6 +204,7 @@
             activities.Add("Backoffice", "14:00 - 15:00");
             activities.Add("Lunch", "15:00 - 16:00");
             activities.Add("Break", "17:00 - 17:10");
+            activities.Add("Party", "19:00 - 22:00");
 
             //var weekSchedule = DataBase.FindWeekSchedule(worker, week);
             //foreach (var day in weekSchedule)
@@ -216,66 +216,23 @@
             //    }
             //}
 
-            var tableHead = new StringBuilder();
-            var tableBody = new StringBuilder();
-            var columnHeight = activities.Count * 2;
-            var columnWidth = 20;
-
-            tableHead
-                .AppendLine("╔".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╗")
-                .AppendLine("║" + "MONDAY".PadBoth(19) + "║" + "TUESDAY".PadBoth(19) + "║" + "WEDNESDAY".PadBoth(19) + "║" + "THURSDAY".PadBoth(19) + "║" + "FRIDAY".PadBoth(19) + "║" + "SATURDAY".PadBoth(19) + "║" + "SUNDAY".PadBoth(19) + "║")
-                .AppendLine("╠".PadRight(20, '═') + "╬".PadRight(20, '═') + "╬".PadRight(20, '═') + "╬".PadRight(20, '═') + "╬".PadRight(20, '═') + "╬".PadRight(20, '═') + "╬".PadRight(20, '═') + "╣");
-
-            for (int i = 0; i < columnHeight; i++)
-            {
-                tableBody.AppendLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            }
-            tableBody.AppendLine("╚".PadRight(20, '═') + "╩".PadRight(20, '═') + "╩".PadRight(20, '═') + "╩".PadRight(20, '═') + "╩".PadRight(20, '═') + "╩".PadRight(20, '═') + "╩".PadRight(20, '═') + "╝");
-
-            var table = tableHead.Append(tableBody);
-            Console.WriteLine(table);
-            FillTheTable(columnWidth, columnHeight, activities);
+            var tableWeek = new TableWeek(activities);
+            tableWeek.FillAndShow();
             ShowUserMenu();
-        }
-
-        private static void FillTheTable(int columnWidth, int columnHeight, Dictionary<string, string> activities)
-        {
-            const int Indent = 2;
-
-            // keeps track of current column's height
-            int currentHeight;
-
-            // save original cursor position before changing it
-            var origRow = Console.CursorTop;
-            var origCol = Console.CursorLeft;
-
-            // move cursor to top left of monday column
-            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - columnHeight - 1);
-
-            for (int i = 0, space = 0; i < Enum.GetValues(typeof(DayOfWeek)).Length; i++, space += columnWidth)
-            {
-                currentHeight = 0;
-
-                foreach (var activity in activities)
-                {
-                    Console.SetCursorPosition(origCol + Indent + space, Console.CursorTop);
-                    Console.WriteLine(activity.Key);
-                    Console.SetCursorPosition(origCol + Indent + space, Console.CursorTop);
-                    Console.WriteLine(activity.Value);
-                    currentHeight += 2;
-                }
-
-                // return to the beginning of the current column
-                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - currentHeight);
-            }
-
-            // restore original cursor position after filling the table
-            Console.SetCursorPosition(origCol, origRow);
         }
 
         private static void DisplayScheduleDay(Worker worker, DateTime dt)
         {
-            throw new NotImplementedException();
+            Dictionary<string, string> activities = new Dictionary<string, string>();
+            activities.Add("In Training", "10:00 - 14:00");
+            activities.Add("Backoffice", "14:00 - 15:00");
+            activities.Add("Lunch", "15:00 - 16:00");
+            activities.Add("Break", "17:00 - 17:10");
+            activities.Add("Party", "19:00 - 22:00");
+
+            var tableDay = new TableDay(activities);
+            tableDay.FillAndShow();
+            ShowUserMenu();
         }
     }
 }

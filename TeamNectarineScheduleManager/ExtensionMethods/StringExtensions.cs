@@ -5,7 +5,7 @@
         /// <summary>
         /// Extension method for centering text (pad both left and right).
         /// </summary>
-        public static string PadBoth(this string str, int totalWidth, char paddingChar = ' ')
+        public static string Center(this string str, int totalWidth, char paddingChar = ' ')
         {
             int padding = totalWidth - str.Length;
             int padLeft = padding / 2 + str.Length;
