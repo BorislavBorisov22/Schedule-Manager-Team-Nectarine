@@ -10,14 +10,14 @@
 
         }
 
-        public DailyEvent(DateTime eventStart, DateTime eventEnd, Events eventType = Events.offDuty)
+        public DailyEvent(DateTime eventStart, DateTime eventEnd, EventType eventType = EventType.offDuty)
         {
             this.EventType = eventType;
             this.EventStart = eventStart;
             this.EventEnd = eventEnd;
         }
 
-        public Events EventType { get; set; }
+        public EventType EventType { get; set; }
         public DateTime EventStart { get; set; }
         public DateTime EventEnd { get; set; }
     }
