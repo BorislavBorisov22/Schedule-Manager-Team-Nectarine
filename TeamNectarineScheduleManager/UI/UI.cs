@@ -95,9 +95,11 @@
                 {
                     case ConsoleKey.D1:
                         DisplayScheduleDay(worker, dt);
+                        ShowUserMenu();
                         break;
                     case ConsoleKey.D2:
                         DisplayScheduleWeek(worker, weekNumber);
+                        ShowUserMenu();
                         break;
                     case ConsoleKey.D3:
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -218,7 +220,6 @@
 
             var tableWeek = new TableWeek(activities);
             tableWeek.FillAndShow();
-            ShowUserMenu();
         }
 
         private static void DisplayScheduleDay(Worker worker, DateTime dt)
@@ -232,7 +233,6 @@
 
             var tableDay = new TableDay(activities);
             tableDay.FillAndShow();
-            ShowUserMenu();
         }
     }
 }

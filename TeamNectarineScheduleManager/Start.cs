@@ -23,7 +23,7 @@
             //Console.WriteLine(pesho2.FirstName);
             //Console.WriteLine(pesho2.LastName);
 
-            UI.ShowMainMenu();
+            //UI.ShowMainMenu();
             // Test Team class
             //Test_Team_Class();
             // Test_Workers_And_Admins_Instances();

@@ -5,7 +5,7 @@
     using System.Text;
     using ExtensionMethods;
 
-    public class Table
+    public abstract class Table
     {
         private StringBuilder tableHead;
         private StringBuilder tableBody;
