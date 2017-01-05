@@ -47,7 +47,7 @@
                 this.personalCalendar = value;
             }
         }
-        
+
         public void AddTeam(Team team)
         {
             if (this.team != null)
@@ -64,6 +64,6 @@
             {
                 throw new ArgumentNullException(message);
             }
-        } 
+        }
     }
 }
