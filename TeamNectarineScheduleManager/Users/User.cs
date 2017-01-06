@@ -42,7 +42,7 @@
                 return this.password;
             }
 
-            private set
+            set
             {
                 if (!IsPasswordValid(value))
                 {
@@ -102,5 +102,16 @@
         {
             return string.Format("Username: {0}, Pass: {1}", this.Username, new string('*', this.password.Length));
         }
+
+        // Needed for DataBase
+        #region NeededForDataBase
+        public string NFDBPasswordCheckBypass
+        {
+            get { return password; }
+            set { password = value; }
+        }
+        #endregion
+        // End of region, needed for DataBase
+
     }
 }

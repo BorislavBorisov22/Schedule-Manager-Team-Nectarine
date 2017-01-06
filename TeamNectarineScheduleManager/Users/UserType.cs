@@ -3,7 +3,8 @@
     public enum UserType
     {
         Admin,
-        Worker,
+        RegularWorker,
+        TeamLeader,
         Unknown
     }
 }

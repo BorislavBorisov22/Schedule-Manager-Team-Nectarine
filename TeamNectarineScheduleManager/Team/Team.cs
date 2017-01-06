@@ -42,7 +42,7 @@
             }
         }
 
-        public TeamLeaderWorker TeamLeader { get; private set; }
+        public TeamLeaderWorker TeamLeader { get; set; }
 
         public string TeamName { get; private set; }
 
@@ -55,5 +55,45 @@
         {
             this.members.Remove(worker);
         }
+
+        // Needed for DataBase
+        #region NeededForDataBase.
+
+        private List<string> NFDBRegularWorkerNames = new List<string>();
+        private string NFDBTeamLeaderName;
+
+        public List<string> NFDBGetRegularWorkerNames()
+        {
+            return NFDBRegularWorkerNames;
+        }
+
+        public void NFDBSetRegularWorkerNames()
+        {
+            NFDBRegularWorkerNames.Clear();
+            for (int i = 0; i < members.Count; i++)
+            {
+                NFDBRegularWorkerNames.Add(members[i].Username);
+            }
+        }
+
+        public string NFDBGetTeamLeaderName()
+        {
+            return NFDBTeamLeaderName;
+        }
+
+        public void NFDBSetTeamLeaderName()
+        {
+            NFDBTeamLeaderName = TeamLeader.Username;
+        }
+
+        public void NFDBClearMembersAndLeader()
+        {
+            members.Clear();
+            TeamLeader = null;
+        }
+
+        #endregion 
+        // Needed for DataBase END
+
     }
 }

@@ -14,7 +14,7 @@
         public Worker(string username, string password, string firstName, string lastName)
             : base(username, password, firstName, lastName)
         {
-            this.UserType = UserType.Worker;
+            this.UserType = UserType.RegularWorker;
         }
 
         public Team Team
@@ -64,5 +64,35 @@
                 throw new ArgumentNullException(message);
             }
         }
+
+        // Needed for DataBase
+        #region NeededForDataBase
+        private string NFDBTeamName = "";
+
+        public void NFDBSetTeamName()
+        {
+            if (team != null)
+            {
+                NFDBTeamName = team.TeamName;
+            }
+            else
+            {
+                NFDBTeamName = "";
+            }
+        }
+
+        public string NFDBGetTeamName()
+        {
+            return NFDBTeamName;
+        }
+
+        public Team NFDBTeamCheckBypass
+        {
+            get { return team; }
+            set { team = value; }
+        }
+
+        #endregion
+        // End of the region, needed for DataBase
     }
 }
