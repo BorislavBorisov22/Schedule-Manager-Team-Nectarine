@@ -5,7 +5,6 @@
     using Users;
     using DataBaseLibrary;
     using UserInterface;
-    using DataBaseLibrary;
     using Calendars;
 
     public class Start
@@ -52,10 +51,29 @@
 
         public static void TestDataBase()
         {
-            Worker w = new Worker("Peter", "SpoonerStr00031", "Peter", "Griffin");
-            DataBase.WriteToDisc(w);
-            Worker w2 = DataBase.ReadFromDiscWorker("Peter");
-            Console.WriteLine($"{w2.FirstName} {w2.LastName}");
+            TeamLeaderWorker peter = new TeamLeaderWorker("Peter", "CertifiedIdiot12345", "Peter", "Griffin");
+            RegularWorker lois = new RegularWorker("Loiss", "HouseWife12345", "Lois", "Griffin");
+            RegularWorker chris = new RegularWorker("Chris", "BaseballCap12345", "Chris", "Griffin");
+            RegularWorker brian = new RegularWorker("Brian", "TalkingDoggo12345", "Brian", "Griffin");
+
+            Team theGriffins = new Team("The Griffins", peter);
+            theGriffins.AddMember(lois);
+            theGriffins.AddMember(chris);
+            theGriffins.AddMember(brian);
+
+
+            DataBase.Save(peter);
+            DataBase.Save(lois);
+            DataBase.Save(chris);
+            DataBase.Save(brian);
+            DataBase.Save(theGriffins);
+
+            TeamLeaderWorker peterReloaded = DataBase.LoadTeamLeader(peter.Username);
+            Console.WriteLine($"{peterReloaded.Username} {peterReloaded.Password} {peterReloaded.FirstName } {peterReloaded.LastName}");
+            for (int i = 0; i < peterReloaded.Team.MembersCount; i++)
+            {
+                Console.WriteLine($"{peterReloaded.Team.Members[i].Username} {peterReloaded.Team.Members[i].Password} {peterReloaded.Team.Members[i].FirstName} {peterReloaded.Team.Members[i].LastName} ");
+            }
         }
     }
 }
