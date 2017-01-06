@@ -1,7 +1,10 @@
 ﻿namespace TeamNectarineScheduleManager.UserInterface
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using DataBaseLibrary;
+    using Table;
     using Users;
 
     public static class UI
@@ -92,9 +95,11 @@
                 {
                     case ConsoleKey.D1:
                         DisplayScheduleDay(worker, dt);
+                        ShowUserMenu();
                         break;
                     case ConsoleKey.D2:
                         DisplayScheduleWeek(worker, weekNumber);
+                        ShowUserMenu();
                         break;
                     case ConsoleKey.D3:
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -196,70 +201,38 @@
 
         private static void DisplayScheduleWeek(Worker worker, int weekNumber)
         {
-            /// var weekSchedule  = DB.FindWeekSchedule(worker, week);
-            /// foreach(var activity in weekSchedule.Monday)
-            /// {
-            ///     Console.WriteLine(activity.name);
-            ///     Console.WriteLine(activity.duration);
-            /// }
+            Dictionary<string, string> activities = new Dictionary<string, string>();
+            activities.Add("In Training", "10:00 - 14:00");
+            activities.Add("Backoffice", "14:00 - 15:00");
+            activities.Add("Lunch", "15:00 - 16:00");
+            activities.Add("Break", "17:00 - 17:10");
+            activities.Add("Party", "19:00 - 22:00");
 
-            Console.WriteLine("╔".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╦".PadRight(20, '═') + "╗");
-            Console.WriteLine("║" + "MONDAY".PadBoth(19) + "║" + "TUESDAY".PadBoth(19) + "║" + "WEDNESDAY".PadBoth(19) + "║" + "THURSDAY".PadBoth(19) + "║" + "FRIDAY".PadBoth(19) + "║" + "SATURDAY".PadBoth(19) + "║" + "SUNDAY".PadBoth(19) + "║");
-            Console.WriteLine("╠".PadRight(20, '═') + "╬".PadRight(20, '═') + "╬".PadRight(20, '═') + "╬".PadRight(20, '═') + "╬".PadRight(20, '═') + "╬".PadRight(20, '═') + "╬".PadRight(20, '═') + "╣");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║ ".PadRight(20) + "║");
-            Console.WriteLine("╚".PadRight(20, '═') + "╩".PadRight(20, '═') + "╩".PadRight(20, '═') + "╩".PadRight(20, '═') + "╩".PadRight(20, '═') + "╩".PadRight(20, '═') + "╩".PadRight(20, '═') + "╝");
+            //var weekSchedule = DataBase.FindWeekSchedule(worker, week);
+            //foreach (var day in weekSchedule)
+            //{
+            //    foreach (var activity in day)
+            //    {
+            //        Console.WriteLine(activity.name);
+            //        Console.WriteLine(activity.duration);
+            //    }
+            //}
 
-            // save original cursor position before changing it
-            var origRow = Console.CursorTop;
-            var origCol = Console.CursorLeft;
-
-            string[] activities = { "In Training", "Backoffice", "Lunch", "Break" };
-            string[] durations = { "10:00 - 14:00", "14:00 - 15:00", "15:00 - 16:00", "17:00 - 17:10" };
-
-            // move cursor to the beginning of Monday column
-            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 13);
-
-            var currentHeight = 0;
-            for (int i = 0; i < activities.Length - 1; i++)
-            {
-                Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop);
-                Console.WriteLine(activities[i]);
-                Console.SetCursorPosition(Console.CursorLeft + 2, Console.CursorTop);
-                Console.WriteLine(durations[i]);
-                currentHeight += 2;
-            }
-
-            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - currentHeight);
-
-            currentHeight = 0;
-            for (int i = 0; i < activities.Length; i++)
-            {
-                Console.SetCursorPosition(Console.CursorLeft + 22, Console.CursorTop);
-                Console.WriteLine(activities[i]);
-                Console.SetCursorPosition(Console.CursorLeft + 22, Console.CursorTop);
-                Console.WriteLine(durations[i]);
-                currentHeight += 2;
-            }
-
-            // restore original cursor position after filling the table
-            Console.SetCursorPosition(origCol, origRow);
-            ShowUserMenu();
+            var tableWeek = new TableWeek(activities);
+            tableWeek.FillAndShow();
         }
 
         private static void DisplayScheduleDay(Worker worker, DateTime dt)
         {
-            throw new NotImplementedException();
+            Dictionary<string, string> activities = new Dictionary<string, string>();
+            activities.Add("In Training", "10:00 - 14:00");
+            activities.Add("Backoffice", "14:00 - 15:00");
+            activities.Add("Lunch", "15:00 - 16:00");
+            activities.Add("Break", "17:00 - 17:10");
+            activities.Add("Party", "19:00 - 22:00");
+
+            var tableDay = new TableDay(activities);
+            tableDay.FillAndShow();
         }
     }
 }

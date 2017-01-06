@@ -5,8 +5,7 @@
 
     using Calendars;
 
-    [Serializable()]
-
+    [Serializable]
     public class Worker : Employee, ILoggable, IEmployee
     {
         private Team team;
@@ -40,7 +39,7 @@
                 return this.personalCalendar;
             }
 
-            protected set
+            set
             {
                 ValidateNull(value, "Worker's personal calendar cannot be null!");
 
