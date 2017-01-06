@@ -28,11 +28,41 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         #region General
 
         /// <summary>
-        /// Saves a worker object on the hard drive, so it can be loaded later.
+        /// Deletes the file, storing this user.
         /// </summary>
-        public static void WriteToDisc(Worker worker)
+        /// <param name="userName"></param>
+        public static void DeleteUser(string userName)
         {
-            if (object.ReferenceEquals(worker, null))
+            try
+            {
+                if (File.Exists(string.Format("{0}\\A{1}.bin", dataDir, userName)))
+                {
+                    File.Delete(string.Format("{0}\\A{1}.bin", dataDir, userName));
+                }
+                if (File.Exists(string.Format("{0}\\W{1}.bin", dataDir, userName)))
+                {
+                    File.Delete(string.Format("{0}\\W{1}.bin", dataDir, userName));
+                }
+                if (File.Exists(string.Format("{0}\\L{1}.bin", dataDir, userName)))
+                {
+                    File.Delete(string.Format("{0}\\L{1}.bin", dataDir, userName));
+                }
+            }
+            catch
+            {
+                throw excIOError;
+            }
+        }
+
+        #endregion // End of Main.General
+
+        #region RegularWorker
+
+        /// <summary>
+        /// Saves a regular worker object on the hard drive, so it can be loaded later.
+        /// </summary>
+        public static void Save(RegularWorker regularWorker)
+        {
             if (object.ReferenceEquals(regularWorker, null))
             { }
             try
@@ -41,6 +71,8 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 RegularWorker internalWorker = DeepCopy(regularWorker);
                 internalWorker.NFDBPasswordCheckBypass = Encryptor.EncryptString(internalWorker.Password);
                 internalWorker.NFDBSetTeamName();
+                internalWorker.NFDBTeamCheckBypass = null;
+                // End of preparation
 
                 if (!Directory.Exists(dataDir))
                 {
@@ -85,9 +117,11 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                         // Decrypt Password
                         result.NFDBPasswordCheckBypass = Encryptor.DecryptString(result.NFDBPasswordCheckBypass);
                         // Attach the team.
+                        result.NFDBTeamCheckBypass = LoadTeam(result.NFDBGetTeamName());
 
                         return result;
                     }                   
+                }
                 else
                 {
                     throw excFileNotFound;
@@ -106,6 +140,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         {
             DeleteUser(user.Username);
         }
+
         #endregion  // End of Main.RegularWorker
 
         #region TeamLeader
@@ -113,6 +148,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// <summary>
         /// Saves a team leader worker object on the hard drive, so it can be loaded later.
         /// </summary>
+        public static void Save(TeamLeaderWorker teamLeader)
         {
             if (object.ReferenceEquals(teamLeader, null))
             { }
@@ -122,6 +158,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 TeamLeaderWorker internalTeamLeader = DeepCopy(teamLeader);
                 internalTeamLeader.NFDBPasswordCheckBypass = Encryptor.EncryptString(internalTeamLeader.NFDBPasswordCheckBypass);
                 internalTeamLeader.NFDBSetTeamName();
+                internalTeamLeader.NFDBTeamCheckBypass = null;
                 // End of preparation
 
                 if (!Directory.Exists(dataDir))
@@ -149,6 +186,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// </summary>
         /// <param name="userName">The name of the team leader worker.</param>
         /// <returns></returns>
+        public static TeamLeaderWorker LoadTeamLeader(string userName)
         {
             try
             {
@@ -167,6 +205,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                         result.NFDBPasswordCheckBypass = Encryptor.DecryptString(result.NFDBPasswordCheckBypass);
 
                         // Attach the team.
+                        result.NFDBTeamCheckBypass = LoadTeam(result.NFDBGetTeamName());
 
                         return result;
                     }
@@ -185,6 +224,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// <summary>
         /// Deletes the file, storing this user.
         /// </summary>
+        public static void DeleteUser(TeamLeaderWorker user)
         {
             DeleteUser(user.Username);
         }
@@ -275,6 +315,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// <summary>
         /// Saves a team object on the hard drive, so it can be loaded later.
         /// </summary>
+        public static void Save(Team team)
         {
             try
             {
@@ -309,6 +350,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// </summary>
         /// <param name="userName">The name of the admin.</param>
         /// <returns></returns>
+        public static Team LoadTeam(string teamName)
         {
             try
             {
@@ -357,12 +399,15 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// <summary>
         /// Deletes the file, storing this team.
         /// </summary>
+        public static void DeleteTeam(Team team)
         {
+            DeleteTeam(team.TeamName);
         }
 
         /// <summary>
         /// Deletes the file, storing this team.
         /// </summary>
+        public static void DeleteTeam(string teamName)
         {
             try
             {
@@ -385,6 +430,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// </summary>
         /// <param name="obj">The object to be saved.</param>
         /// <param name="fileName">The name of the file.</param>
+        public static void SaveGeneric(object obj, string fileName)
         {
             try
             {
@@ -413,6 +459,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
         /// </summary>
         /// <param name="fileName">The name of the file, where the object is saved.</param>
         /// <returns></returns>
+        public static object LoadGeneric(string fileName)
         {
             try
             {
@@ -583,6 +630,9 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
             else if (File.Exists(string.Format("{0}\\W{1}.bin", dataDir, userName)))
             {
                 if (LoadRegularWorker(userName).Password == password)
+                {
+                    return true;
+                }
                 else
                 {
                     return false;
@@ -592,6 +642,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
             // Check team leaders.
             else if (File.Exists(string.Format("{0}\\L{1}.bin", dataDir, userName)))
             {
+                if (LoadTeamLeader(userName).Password == password)
                 {
                     return true;
                 }
