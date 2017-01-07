@@ -4,6 +4,7 @@
     using System.Collections.Generic;
 
     [Serializable]
+
     public class Calendar
     {
         private Month _month;
@@ -24,29 +25,29 @@
             this._week = week;
             _employeeDailyEvents = new List<DailyEvent>();
         }
+
         public List<DailyEvent> CalendarEvents
         {
             get
             {
-                return _employeeDailyEvents;
+                return new List<DailyEvent>(this._employeeDailyEvents);
             }
-            set
+        }
+
+        // Adds event for the current calendar
+        public void AddEvent(DailyEvent currentEvent)
+        {
+            if (currentEvent == null)
             {
-                _employeeDailyEvents = value;
+                throw new ArgumentNullException("DailyEvent with a null value cannot be added to calendar");
             }
-        }
-        public List<DailyEvent> AddEvent(DailyEvent currentEvent, Calendar calendar)
-        {
-            calendar.CalendarEvents.Add(currentEvent);
-            return CalendarEvents;
-        }
-        // Adds event for the current caledar
-        public List<DailyEvent> RemoveEvent(int removeIndex, Calendar calendar)
-        {
-            calendar.CalendarEvents.RemoveAt(removeIndex);
-            return CalendarEvents;
+
+            this._employeeDailyEvents.Add(currentEvent);
         }
         // Removes event from the current calendar
+        public void RemoveEvent(int removeIndex, Calendar calendar)
+        {
+            calendar.CalendarEvents.RemoveAt(removeIndex);
+        }
     }
-
 }

@@ -3,6 +3,7 @@
     using System;
 
     [Serializable]
+
     public abstract class User : ILoggable
     {
         // needed for log-in

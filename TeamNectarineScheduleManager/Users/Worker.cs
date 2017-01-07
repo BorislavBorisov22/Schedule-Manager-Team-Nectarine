@@ -2,36 +2,35 @@
 {
     // using TeamCalendars;
     using System;
-
     using Calendars;
 
     [Serializable]
-    public class Worker : Employee, ILoggable, IEmployee
+
+    public class Worker : Employee, ILoggable, IEmployee, IWorker
     {
-        private Team team;
+        private ITeam team;
         private PersonalCalendar personalCalendar;
 
         public Worker(string username, string password, string firstName, string lastName)
             : base(username, password, firstName, lastName)
         {
             this.UserType = UserType.RegularWorker;
+            this.PersonCalendar = new PersonalCalendar();
         }
 
-        public Team Team
+        public string Team
         {
             get
             {
-                return this.team;
-            }
+                if (this.team == null)
+                {
+                    return "No current Team";
+                }
 
-            protected set
-            {
-                ValidateNull(value, "Worker's team cannot be null!");
-
-                this.Team = value;
+                return this.team.TeamName;
             }
         }
-
+       
         public PersonalCalendar PersonCalendar
         {
             get
@@ -47,14 +46,29 @@
             }
         }
 
-        public void AddTeam(Team team)
+        public void AddToTeam(ITeam team)
         {
             if (this.team != null)
             {
                 throw new InvalidOperationException("Adding a team to a worker who already has a team is not allowed");
             }
 
-            this.Team = team;
+            if (team == null)
+            {
+                throw new ArgumentNullException("Cannot add null value to worker's team");
+            }
+
+            this.team = team;
+        }
+
+        public void RemoveFromTeam()
+        {
+            this.team = null;
+        }
+
+        public void AddEventToCalendar(DailyEvent workerDailyEvent)
+        {
+            this.PersonCalendar.AddEvent(workerDailyEvent);
         }
 
         private void ValidateNull(object obj, string message = null)
@@ -86,7 +100,7 @@
             return NFDBTeamName;
         }
 
-        public Team NFDBTeamCheckBypass
+        public ITeam NFDBTeamCheckBypass
         {
             get { return team; }
             set { team = value; }

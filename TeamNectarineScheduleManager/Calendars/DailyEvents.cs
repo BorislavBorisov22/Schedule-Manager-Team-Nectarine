@@ -3,6 +3,7 @@
     using System;
 
     [Serializable]
+
     public class DailyEvent
     {
         public DailyEvent()

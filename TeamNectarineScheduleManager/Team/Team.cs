@@ -1,21 +1,26 @@
-﻿namespace TeamNectarineScheduleManager
+﻿namespace TeamNectarineScheduleManager.Teams
 {
-    using System.Collections.Generic;
-    using Users;
     using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using Users;
 
     // the team class holds a sequence of members and a team leader and has two basic 
     // functionalities -> adding a member to the team and removing a member from the team
     // TO DO: add a calendar for the team that includes the duties of all of the 
     // team members in the team
     [Serializable]
-    public class Team
-    {
-        private IList<Worker> members;
 
-        public Team(Worker teamLeader)
-        {
-            this.TeamName = "Global team";
+    public class Team : ITeam
+    {
+        private const string defaultTeamName = "Global team"; 
+
+        private ICollection<Worker> members;
+
+        public Team(TeamLeaderWorker teamLeader)
+            :this(defaultTeamName, teamLeader)
+        {   
         }
 
         public Team(string teamName, TeamLeaderWorker teamLeader)
@@ -30,7 +35,7 @@
         {
             get
             {
-                return this.members.Count + 1;
+                return this.members.Count;
             }
         }
 
@@ -49,11 +54,13 @@
         public void AddMember(RegularWorker worker)
         {
             this.members.Add(worker);
+            worker.AddToTeam(this);
         }
 
         public void RemoveMemeber(RegularWorker worker)
         {
             this.members.Remove(worker);
+            worker.RemoveFromTeam();
         }
 
         // Needed for DataBase
@@ -70,9 +77,10 @@
         public void NFDBSetRegularWorkerNames()
         {
             NFDBRegularWorkerNames.Clear();
-            for (int i = 0; i < members.Count; i++)
+
+            foreach (var member in this.members)
             {
-                NFDBRegularWorkerNames.Add(members[i].Username);
+                NFDBRegularWorkerNames.Add(member.Username);
             }
         }
 
@@ -94,6 +102,5 @@
 
         #endregion 
         // Needed for DataBase END
-
     }
 }

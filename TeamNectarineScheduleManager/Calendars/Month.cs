@@ -2,7 +2,7 @@
 {
     public enum Month
     {
-        January = 1,
+        January,
         February,
         March,
         April,

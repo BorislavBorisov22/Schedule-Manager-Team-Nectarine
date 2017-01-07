@@ -2,7 +2,7 @@
 {
     public enum DayOfWeek
     {
-        Monday = 1,
+        Monday,
         Tuesday,
         Wednesday,
         Thursday,
