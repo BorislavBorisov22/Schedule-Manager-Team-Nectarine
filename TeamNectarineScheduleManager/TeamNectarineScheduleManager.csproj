@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppExceptions\InvalidPasswordException.cs" />
+    <Compile Include="AppExceptions\InvalidUsernameException.cs" />
     <Compile Include="Calendars\DayOfWeek.cs" />
     <Compile Include="Calendars\EventType.cs" />
     <Compile Include="Contracts\ILoggable.cs" />
