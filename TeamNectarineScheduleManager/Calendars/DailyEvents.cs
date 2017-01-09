@@ -12,25 +12,25 @@
         public DailyEvents()
         {
         }
-        protected internal DailyEvents(int DayOfTheMonth, int Month, int Year, string EventStart = "09:00", string EventEnd = "17:00", EventType currentEvent = EventType.OffDuty)
+        protected internal DailyEvents(int dayOfTheMonth, int month, int year, string eventStart = "09:00", string eventEnd = "17:00", EventType currentEvent = EventType.OffDuty)
         {
             this._event = currentEvent;
-            if (int.Parse(EventStart.Substring(0, 2)) < 0 | int.Parse(EventStart.Substring(0, 2)) > 23 |
-                int.Parse(EventStart.Substring(3, 2)) < 0 | int.Parse(EventStart.Substring(3, 2)) > 59 |
-                int.Parse(EventEnd.Substring(0, 2)) < 0 | int.Parse(EventEnd.Substring(0, 2)) > 23 |
-                int.Parse(EventEnd.Substring(3, 2)) < 0 | int.Parse(EventEnd.Substring(3, 2)) > 59)
+            if (int.Parse(eventStart.Substring(0, 2)) < 0 | int.Parse(eventStart.Substring(0, 2)) > 23 |
+                int.Parse(eventStart.Substring(3, 2)) < 0 | int.Parse(eventStart.Substring(3, 2)) > 59 |
+                int.Parse(eventEnd.Substring(0, 2)) < 0 | int.Parse(eventEnd.Substring(0, 2)) > 23 |
+                int.Parse(eventEnd.Substring(3, 2)) < 0 | int.Parse(eventEnd.Substring(3, 2)) > 59)
             {
                 throw new ArgumentOutOfRangeException("Start and end time of an Event must be provided in HH:MM format.");
             }
-            if (DayOfTheMonth < 1 | DayOfTheMonth > 31)
+            if (dayOfTheMonth < 1 | dayOfTheMonth > 31)
             {
                 throw new ArgumentOutOfRangeException("Day of the month for an event must be an integer number ranging from 1 to 31 inclusive");
             }
-            if (Month < 1 | Month > 12)
+            if (month < 1 | month > 12)
             {
                 throw new ArgumentOutOfRangeException("Month argument of an event must be integer number ranging from 1 to 12 inclusive");
             }
-            if (Year < 2016 | Year > 2026)
+            if (year < 2016 | year > 2026)
             {
                 throw new ArgumentOutOfRangeException("Year argument of an event must be integer number in the range of 2016 to 2026 inclusive");
             }
