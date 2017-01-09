@@ -12,7 +12,7 @@
         public DailyEvents()
         {
         }
-        protected internal DailyEvents(int DayOfTheMonth, int Month, int Year, string EventStart = "09:00", string EventEnd = "17:00", EventType currentEvent = EventType.offDuty)
+        protected internal DailyEvents(int DayOfTheMonth, int Month, int Year, string EventStart = "09:00", string EventEnd = "17:00", EventType currentEvent = EventType.OffDuty)
         {
             this._event = currentEvent;
             if (int.Parse(EventStart.Substring(0, 2)) < 0 | int.Parse(EventStart.Substring(0, 2)) > 23 |
