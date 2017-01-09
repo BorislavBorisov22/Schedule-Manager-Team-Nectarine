@@ -9,15 +9,12 @@
         private static readonly DateTime[] officialHolidays; // initialize with dates of official holidays
         public Calendar()
         {
-<<<<<<< HEAD
+
             day = new List<DailyEvents>[366];
             List<DailyEvents> dailySchedule = new List<DailyEvents>();
-=======
-
             day = new List<DailyEvents>[366];
 
             List<DailyEvents> daySchedule = new List<DailyEvents>();
->>>>>>> origin/master
             for (int i = 0; i < 366; i++)
             {
                 day[i] = new List<DailyEvents>();
@@ -36,11 +33,7 @@
         {
             DateTime _eventDate = new DateTime();
             _eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
-<<<<<<< HEAD
-            this.day[_eventDate.DayOfYear - 1].RemoveAt(EventNumber);
-=======
             this.day[_eventDate.DayOfYear - 1].RemoveAt(eventNumber);
->>>>>>> origin/master
         }
         public string[] ToString(int dayOfTheMonth, int month, int year)
         {
