@@ -80,9 +80,9 @@
             TeamLeaderWorker peterReloaded = DataBase.LoadTeamLeader(peter.Username);
             Console.WriteLine($"{peterReloaded.Username} {peterReloaded.Password} {peterReloaded.FirstName } {peterReloaded.LastName}");
             //for (int i = 0; i < peterReloaded.Team.MembersCount; i++)
-            {
-                //Console.WriteLine($"{peterReloaded.Team.Members[i].Username} {peterReloaded.Team.Members[i].Password} {peterReloaded.Team.Members[i].FirstName} {peterReloaded.Team.Members[i].LastName} ");
-            }
+            //{
+            //    Console.WriteLine($"{peterReloaded.Team.Members[i].Username} {peterReloaded.Team.Members[i].Password} {peterReloaded.Team.Members[i].FirstName} {peterReloaded.Team.Members[i].LastName} ");
+            //}
         }
     }
 }
