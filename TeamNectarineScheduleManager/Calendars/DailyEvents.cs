@@ -5,14 +5,14 @@
 
     public class DailyEvents
     {
-        protected Events _event;
+        protected  EventType _event;
         protected DateTime _eventStart;
         protected DateTime _eventEnd;
 
         public DailyEvents()
         {
         }
-        protected internal DailyEvents(int DayOfTheMonth, int Month, int Year, string EventStart = "09:00", string EventEnd = "17:00", Events currentEvent = Events.offDuty)
+        protected internal DailyEvents(int DayOfTheMonth, int Month, int Year, string EventStart = "09:00", string EventEnd = "17:00", EventType currentEvent = EventType.offDuty)
         {
             this._event = currentEvent;
             if (int.Parse(EventStart.Substring(0, 2)) < 0 | int.Parse(EventStart.Substring(0, 2)) > 23 |

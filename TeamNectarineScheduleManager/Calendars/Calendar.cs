@@ -20,7 +20,7 @@
             
         }
 
-        public void AddEvent(int DayOfTheMonth, int Month, int Year, string EventStart, string EventEnd, Events Event)
+        public void AddEvent(int DayOfTheMonth, int Month, int Year, string EventStart, string EventEnd, EventType Event)
         {
             DailyEvents _event = new DailyEvents(DayOfTheMonth, Month, Year, EventStart, EventEnd, Event);
             DateTime _eventDate = new DateTime();
