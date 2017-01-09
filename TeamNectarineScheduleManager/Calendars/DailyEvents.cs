@@ -12,7 +12,7 @@
         public DailyEvents()
         {
         }
-        protected internal DailyEvents(int DayOfTheMonth, int Month, int Year, string EventStart = "09:00", string EventEnd = "17:00", EventType currentEvent = EventType.offDuty)
+        protected internal DailyEvents(int DayOfTheMonth, int Month, int Year, string EventStart = "09:00", string EventEnd = "17:00", EventType currentEvent = EventType.OffDuty)
         {
             this._event = currentEvent;
             if (int.Parse(EventStart.Substring(0, 2)) < 0 | int.Parse(EventStart.Substring(0, 2)) > 23 |
@@ -34,16 +34,16 @@
             {
                 throw new ArgumentOutOfRangeException("Year argument of an event must be integer number in the range of 2016 to 2026 inclusive");
             }
+        }
 
-<<<<<<< HEAD
-        public DailyEvent(DateTime eventStart, DateTime eventEnd, EventType eventType = EventType.OffDuty)
-=======
+        public DailyEvent(DateTime eventStart, DateTime eventEnd, EventType eventType = EventType.OffDuty) { 
+
             this._eventStart = DateTime.Parse(EventStart + " " + DayOfTheMonth + "/" + Month + "/" + Year);
             this._eventEnd = DateTime.Parse(EventEnd + " " + DayOfTheMonth + "/" + Month + "/" + Year);
 
         }
         public override string ToString()
->>>>>>> origin/master
+
         {
             StringBuilder result = new StringBuilder(32);
             result.Append(this._eventStart.ToString("HH:mm") + " - " + this._eventEnd.ToString("HH:mm"));
