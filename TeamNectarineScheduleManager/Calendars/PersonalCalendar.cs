@@ -19,7 +19,7 @@
         }
 
         public PersonalCalendar(Month month, int week, DayOfWeek day)
-            : base(month, week, day)
+            : base()
         {
         }
     }
