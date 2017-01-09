@@ -15,10 +15,10 @@
         protected internal DailyEvents(int dayOfTheMonth, int month, int year, string eventStart = "09:00", string eventEnd = "17:00", EventType currentEvent = EventType.OffDuty)
         {
             this._event = currentEvent;
-            if (int.Parse(eventStart.Substring(0, 2)) < 0 | int.Parse(eventStart.Substring(0, 2)) > 23 |
-                int.Parse(eventStart.Substring(3, 2)) < 0 | int.Parse(eventStart.Substring(3, 2)) > 59 |
-                int.Parse(eventEnd.Substring(0, 2)) < 0 | int.Parse(eventEnd.Substring(0, 2)) > 23 |
-                int.Parse(eventEnd.Substring(3, 2)) < 0 | int.Parse(eventEnd.Substring(3, 2)) > 59)
+            if (int.Parse(eventStart.Substring(0, 2)) < 0 || int.Parse(eventStart.Substring(0, 2)) > 23 ||
+                int.Parse(eventStart.Substring(3, 2)) < 0 || int.Parse(eventStart.Substring(3, 2)) > 59 ||
+                int.Parse(eventEnd.Substring(0, 2)) < 0 || int.Parse(eventEnd.Substring(0, 2)) > 23 ||
+                int.Parse(eventEnd.Substring(3, 2)) < 0 || int.Parse(eventEnd.Substring(3, 2)) > 59)
             {
                 throw new ArgumentOutOfRangeException("Start and end time of an Event must be provided in HH:MM format.");
             }
