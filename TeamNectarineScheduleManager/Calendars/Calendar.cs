@@ -3,51 +3,49 @@
     using System;
     using System.Collections.Generic;
 
-    [Serializable]
-
-    public class Calendar
+    public class Calendar : DailyEvents
     {
-        private Month _month;
-        private int _week; // specify week number, must be between 1 and 53 inclusive
-        private DayOfWeek _day;
-        public List<DailyEvent> _employeeDailyEvents;//Creates list of with events for the current calendar.
+        public List<DailyEvents>[] personalCalendar;
         private static readonly DateTime[] officialHolidays; // initialize with dates of official holidays
-
         public Calendar()
         {
 
-        }
+            personalCalendar = new List<DailyEvents>[366];
 
-        public Calendar(Month month, int week, DayOfWeek day)
-        {
-            this._month = month;
-            this._day = day;
-            this._week = week;
-            _employeeDailyEvents = new List<DailyEvent>();
-        }
-
-        public List<DailyEvent> CalendarEvents
-        {
-            get
+            List<DailyEvents> daySchedule = new List<DailyEvents>();
+            for (int i = 0; i < 366; i++)
             {
-                return new List<DailyEvent>(this._employeeDailyEvents);
+                personalCalendar[i] = new List<DailyEvents>();
             }
+            
         }
 
-        // Adds event for the current calendar
-        public void AddEvent(DailyEvent currentEvent)
+        public void AddEvent(int DayOfTheMonth, int Month, int Year, string EventStart, string EventEnd, EventType Event)
         {
-            if (currentEvent == null)
+            DailyEvents _event = new DailyEvents(DayOfTheMonth, Month, Year, EventStart, EventEnd, Event);
+            DateTime _eventDate = new DateTime();
+            _eventDate = DateTime.Parse(DayOfTheMonth + "/" + Month + "/" + Year);
+            this.personalCalendar[_eventDate.DayOfYear - 1].Add(_event);
+        }
+
+        public void RemoveEvent(int DayOfTheMonth, int Month, int Year, string EventStart, string EventEnd, int EventNumber)
+        {
+            DateTime _eventDate = new DateTime();
+            _eventDate = DateTime.Parse(DayOfTheMonth + "/" + Month + "/" + Year);
+            this.personalCalendar[_eventDate.DayOfYear - 1].RemoveAt(EventNumber);
+        }
+        public string[] ToString(int DayOfTheMonth, int Month, int Year)
+        {
+            DateTime _eventDate = new DateTime();
+            _eventDate = DateTime.Parse(DayOfTheMonth + "/" + Month + "/" + Year);
+
+            int numberOfEvents = this.personalCalendar[_eventDate.DayOfYear - 1].Count;
+            string[] result = new string[numberOfEvents];
+            for (int i = 0; i < numberOfEvents; i++)
             {
-                throw new ArgumentNullException("DailyEvent with a null value cannot be added to calendar");
+                result[i] = "EventNumber[" + i + "] " + this.personalCalendar[_eventDate.DayOfYear - 1][i].ToString();
             }
-
-            this._employeeDailyEvents.Add(currentEvent);
-        }
-        // Removes event from the current calendar
-        public void RemoveEvent(int removeIndex, Calendar calendar)
-        {
-            calendar.CalendarEvents.RemoveAt(removeIndex);
+            return result;
         }
     }
 }

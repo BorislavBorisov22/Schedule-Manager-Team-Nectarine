@@ -1,25 +1,56 @@
 ﻿namespace TeamNectarineScheduleManager.Calendars
 {
     using System;
+    using System.Text;
 
-    [Serializable]
-
-    public class DailyEvent
+    public class DailyEvents
     {
-        public DailyEvent()
+        protected  EventType _event;
+        protected DateTime _eventStart;
+        protected DateTime _eventEnd;
+
+        public DailyEvents()
         {
-
         }
+        protected internal DailyEvents(int DayOfTheMonth, int Month, int Year, string EventStart = "09:00", string EventEnd = "17:00", EventType currentEvent = EventType.offDuty)
+        {
+            this._event = currentEvent;
+            if (int.Parse(EventStart.Substring(0, 2)) < 0 | int.Parse(EventStart.Substring(0, 2)) > 23 |
+                int.Parse(EventStart.Substring(3, 2)) < 0 | int.Parse(EventStart.Substring(3, 2)) > 59 |
+                int.Parse(EventEnd.Substring(0, 2)) < 0 | int.Parse(EventEnd.Substring(0, 2)) > 23 |
+                int.Parse(EventEnd.Substring(3, 2)) < 0 | int.Parse(EventEnd.Substring(3, 2)) > 59)
+            {
+                throw new ArgumentOutOfRangeException("Start and end time of an Event must be provided in HH:MM format.");
+            }
+            if (DayOfTheMonth < 1 | DayOfTheMonth > 31)
+            {
+                throw new ArgumentOutOfRangeException("Day of the month for an event must be an integer number ranging from 1 to 31 inclusive");
+            }
+            if (Month < 1 | Month > 12)
+            {
+                throw new ArgumentOutOfRangeException("Month argument of an event must be integer number ranging from 1 to 12 inclusive");
+            }
+            if (Year < 2016 | Year > 2026)
+            {
+                throw new ArgumentOutOfRangeException("Year argument of an event must be integer number in the range of 2016 to 2026 inclusive");
+            }
 
+<<<<<<< HEAD
         public DailyEvent(DateTime eventStart, DateTime eventEnd, EventType eventType = EventType.OffDuty)
-        {
-            this.EventType = eventType;
-            this.EventStart = eventStart;
-            this.EventEnd = eventEnd;
-        }
+=======
+            this._eventStart = DateTime.Parse(EventStart + " " + DayOfTheMonth + "/" + Month + "/" + Year);
+            this._eventEnd = DateTime.Parse(EventEnd + " " + DayOfTheMonth + "/" + Month + "/" + Year);
 
-        public EventType EventType { get; set; }
-        public DateTime EventStart { get; set; }
-        public DateTime EventEnd { get; set; }
+        }
+        public override string ToString()
+>>>>>>> origin/master
+        {
+            StringBuilder result = new StringBuilder(32);
+            result.Append(this._eventStart.ToString("HH:mm") + " - " + this._eventEnd.ToString("HH:mm"));
+            result.Append(" ");
+            result.Append(this._event);
+            return result.ToString();
+        }
     }
 }
+//.name връща типа на евента, начало и край като стринг In traning 10:00 - 14:00
