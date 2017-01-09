@@ -2,7 +2,8 @@
 {
     using System;
 
-    public abstract class Employee : User, ILoggable
+    [Serializable]
+    public abstract class Employee : User, ILoggable, IEmployee
     {
         private string firstName;
         private string lastName;
@@ -43,7 +44,7 @@
             {
                 if (!IsNameValid(value))
                 {
-                    throw new ArgumentException("Invalid last name! Each name of a person should be at least two symbols long and contain only letter symbols");
+                    throw new ArgumentException("Invalid last name! Each name of a person should be at least two symbols long and contain only letter symbols.");
                 }
 
                 this.lastName = value;

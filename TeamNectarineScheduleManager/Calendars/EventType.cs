@@ -1,12 +1,14 @@
 ﻿namespace TeamNectarineScheduleManager.Calendars
 {
-    public enum Events
+    public enum EventType
     {
         work = 1,
         work_break,
         offDuty,
         absent,
         holiday,
-        sick
+        sick,
+        lunch,
+        training
     }
 }

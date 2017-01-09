@@ -1,19 +1,26 @@
-﻿namespace TeamNectarineScheduleManager
+﻿namespace TeamNectarineScheduleManager.Teams
 {
+    using System;
     using System.Collections.Generic;
+    using System.Text;
+
     using Users;
 
     // the team class holds a sequence of members and a team leader and has two basic 
     // functionalities -> adding a member to the team and removing a member from the team
-    // TO DO: add a calnedar for the team that includes the duties of all of the 
+    // TO DO: add a calendar for the team that includes the duties of all of the 
     // team members in the team
-    public class Team
-    {
-        private IList<Worker> members;
+    [Serializable]
 
-        public Team(Worker teamLeader)
-        {
-            this.TeamName = "Global team";
+    public class Team : ITeam
+    {
+        private const string defaultTeamName = "Global team"; 
+
+        private ICollection<Worker> members;
+
+        public Team(TeamLeaderWorker teamLeader)
+            :this(defaultTeamName, teamLeader)
+        {   
         }
 
         public Team(string teamName, TeamLeaderWorker teamLeader)
@@ -28,7 +35,7 @@
         {
             get
             {
-                return this.members.Count + 1;
+                return this.members.Count;
             }
         }
 
@@ -40,18 +47,60 @@
             }
         }
 
-        public TeamLeaderWorker TeamLeader { get; private set; }
+        public TeamLeaderWorker TeamLeader { get; set; }
 
         public string TeamName { get; private set; }
 
         public void AddMember(RegularWorker worker)
         {
             this.members.Add(worker);
+            worker.AddToTeam(this);
         }
 
         public void RemoveMemeber(RegularWorker worker)
         {
             this.members.Remove(worker);
+            worker.RemoveFromTeam();
         }
+
+        // Needed for DataBase
+        #region NeededForDataBase.
+
+        private List<string> NFDBRegularWorkerNames = new List<string>();
+        private string NFDBTeamLeaderName;
+
+        public List<string> NFDBGetRegularWorkerNames()
+        {
+            return NFDBRegularWorkerNames;
+        }
+
+        public void NFDBSetRegularWorkerNames()
+        {
+            NFDBRegularWorkerNames.Clear();
+
+            foreach (var member in this.members)
+            {
+                NFDBRegularWorkerNames.Add(member.Username);
+            }
+        }
+
+        public string NFDBGetTeamLeaderName()
+        {
+            return NFDBTeamLeaderName;
+        }
+
+        public void NFDBSetTeamLeaderName()
+        {
+            NFDBTeamLeaderName = TeamLeader.Username;
+        }
+
+        public void NFDBClearMembersAndLeader()
+        {
+            members.Clear();
+            TeamLeader = null;
+        }
+
+        #endregion 
+        // Needed for DataBase END
     }
 }

@@ -1,7 +1,10 @@
 ﻿namespace TeamNectarineScheduleManager.UserInterface
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using DataBaseLibrary;
+    using Table;
     using Users;
 
     public static class UI
@@ -15,6 +18,7 @@
 
         public static void ShowMainMenu()
         {
+            Console.SetWindowSize(Console.LargestWindowWidth, Console.WindowHeight);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("╔═══════════════════════════════════════════════╗");
             Console.WriteLine("║ Welcome to Team Nectarine's Schedule Manager! ║");
@@ -55,6 +59,10 @@
                 UserLogin();
             }
 
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("\nLogin success!");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+
             if (userLogin)
             {
                 ShowUserMenu();
@@ -67,9 +75,6 @@
 
         private static void ShowUserMenu()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("\nLogin success!");
-            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("What do you want to do next: ");
             Console.WriteLine("     [1] Check daily schedule");
             Console.WriteLine("     [2] Check weekly schedule");
@@ -77,10 +82,7 @@
             Console.WriteLine("     [Esc] to quit");
             ConsoleKeyInfo cki;
 
-            var worker = new Worker(username, password.ToString(), "Cenko", "Chokov");
-            var dt = new DateTime(2016, 12, 29);
-            var weekNumber = 52;
-
+            var worker = new Worker("cenko91", "blabla12345", "Cenko", "Chokov");
             do
             {
                 cki = Console.ReadKey(true);
@@ -88,10 +90,12 @@
                 switch (cki.Key)
                 {
                     case ConsoleKey.D1:
-                        DisplayScheduleDay(worker, dt);
+                        DisplayScheduleDay(worker);
+                        ShowUserMenu();
                         break;
                     case ConsoleKey.D2:
-                        DisplayScheduleWeek(worker, weekNumber);
+                        DisplayScheduleWeek(worker);
+                        ShowUserMenu();
                         break;
                     case ConsoleKey.D3:
                         Console.ForegroundColor = ConsoleColor.Green;
@@ -191,14 +195,36 @@
             }
         }
 
-        private static void DisplayScheduleWeek(Worker worker, int weekNumber)
+        private static void DisplayScheduleWeek(Worker worker)
         {
-            throw new NotImplementedException();
+            Dictionary<string, string> activities = new Dictionary<string, string>();
+            activities.Add("In Training", "10:00 - 14:00");
+            activities.Add("Backoffice", "14:00 - 15:00");
+            activities.Add("Lunch", "15:00 - 16:00");
+            activities.Add("Break", "17:00 - 17:10");
+            activities.Add("Party", "19:00 - 22:00");
+
+            var tableWeek = new TableWeek(activities);
+            tableWeek.FillAndShow();
         }
 
-        private static void DisplayScheduleDay(Worker worker, DateTime dt)
+        private static void DisplayScheduleDay(Worker worker)
         {
-            throw new NotImplementedException();
+            //foreach (var someEvent in worker.PersonalCalendar.GetDailySchedule(52, DayOfWeek.Monday))
+            //{
+            //    Console.WriteLine(someEvent.EventType);
+            //    Console.WriteLine($"{someEvent.EventStart} - {someEvent.EventEnd}");
+            //}
+
+            Dictionary<string, string> activities = new Dictionary<string, string>();
+            activities.Add("In Training", "10:00 - 14:00");
+            activities.Add("Backoffice", "14:00 - 15:00");
+            activities.Add("Lunch", "15:00 - 16:00");
+            activities.Add("Break", "17:00 - 17:10");
+            activities.Add("Party", "19:00 - 22:00");
+
+            var tableDay = new TableDay(activities);
+            tableDay.FillAndShow();
         }
     }
 }
