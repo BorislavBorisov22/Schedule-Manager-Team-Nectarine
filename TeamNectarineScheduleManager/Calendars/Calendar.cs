@@ -17,8 +17,7 @@
             {
                 personalCalendar[i] = new List<DailyEvents>();
             }
-            Console.WriteLine(personalCalendar.Count());
-            Console.WriteLine(personalCalendar.ToString());
+            
         }
 
         public void AddEvent(int DayOfTheMonth, int Month, int Year, string EventStart, string EventEnd, Events Event)
