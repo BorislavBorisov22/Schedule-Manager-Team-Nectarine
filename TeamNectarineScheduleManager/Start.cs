@@ -14,11 +14,10 @@
         public static void Main()
         {
             //TestDataBase();
-            //UI.ShowMainMenu();
+            UI.ShowMainMenu();
             // Test Team class
             //Test_Team_Class();
-            // Test_Workers_And_Admins_Instances();
-            
+            //Test_Workers_And_Admins_Instances();
         }
 
         public static void Test_Team_Class()
@@ -71,7 +70,6 @@
             theGriffins.AddMember(lois);
             theGriffins.AddMember(chris);
             theGriffins.AddMember(brian);
-
 
             DataBase.Save(peter);
             DataBase.Save(lois);

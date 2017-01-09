@@ -10,6 +10,5 @@
         Sick,
         Lunch,
         InTraining
-
     }
 }

@@ -34,12 +34,10 @@
             {
                 throw new ArgumentOutOfRangeException("Year argument of an event must be integer number in the range of 2016 to 2026 inclusive");
             }
-
-            this._eventStart = DateTime.Parse(EventStart + " " + DayOfTheMonth + "/" + Month + "/" + Year);
-            this._eventEnd = DateTime.Parse(EventEnd + " " + DayOfTheMonth + "/" + Month + "/" + Year);
-
         }
+
         public override string ToString()
+
         {
             StringBuilder result = new StringBuilder(32);
             result.Append(this._eventStart.ToString("HH:mm") + " - " + this._eventEnd.ToString("HH:mm"));
