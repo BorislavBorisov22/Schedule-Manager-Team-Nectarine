@@ -66,7 +66,7 @@
             this.team = null;
         }
 
-        public void AddEventToCalendar(DailyEvent workerDailyEvent)
+        public void AddEventToCalendar(DailyEvents workerDailyEvent)
         {
             this.PersonCalendar.AddEvent(workerDailyEvent);
         }

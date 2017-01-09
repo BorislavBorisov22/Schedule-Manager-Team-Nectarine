@@ -36,12 +36,6 @@
             }
         }
 
-        public DailyEvent(DateTime eventStart, DateTime eventEnd, EventType eventType = EventType.OffDuty) { 
-
-            this._eventStart = DateTime.Parse(EventStart + " " + DayOfTheMonth + "/" + Month + "/" + Year);
-            this._eventEnd = DateTime.Parse(EventEnd + " " + DayOfTheMonth + "/" + Month + "/" + Year);
-
-        }
         public override string ToString()
 
         {
