@@ -5,7 +5,7 @@
     using System.Text;
     using ExtensionMethods;
 
-    public abstract class Table
+    public class Table
     {
         private StringBuilder tableHead;
         private StringBuilder tableBody;
@@ -30,7 +30,7 @@
             this.columnWidth = columnWidth;
         }
 
-        public void FillAndShow()
+        public void FillAndDraw()
         {
             tableHead.Append("╔");
             for (int i = 0; i < numberOfColumns - 1; i++)
@@ -74,6 +74,7 @@
             tableBody.AppendLine(border + "╝");
 
             var table = tableHead.Append(tableBody);
+            Console.WriteLine();
             Console.Write(table);
 
             var indent = 2;

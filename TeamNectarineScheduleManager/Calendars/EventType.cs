@@ -2,13 +2,13 @@
 {
     public enum EventType
     {
-        work = 1,
-        work_break,
-        offDuty,
-        absent,
-        holiday,
-        sick,
-        lunch,
-        training
+        Work = 1,
+        Break,
+        OffDuty,
+        Absent,
+        OnHoliday,
+        Sick,
+        Lunch,
+        InTraining
     }
 }
