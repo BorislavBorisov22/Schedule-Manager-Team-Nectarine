@@ -20,24 +20,24 @@
             
         }
 
-        public void AddEvent(int DayOfTheMonth, int Month, int Year, string EventStart, string EventEnd, EventType Event)
+        public void AddEvent(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType eventType)
         {
-            DailyEvents _event = new DailyEvents(DayOfTheMonth, Month, Year, EventStart, EventEnd, Event);
+            DailyEvents _event = new DailyEvents(dayOfTheMonth, month, year, eventStart, eventEnd, eventType);
             DateTime _eventDate = new DateTime();
-            _eventDate = DateTime.Parse(DayOfTheMonth + "/" + Month + "/" + Year);
+            _eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
             this.personalCalendar[_eventDate.DayOfYear - 1].Add(_event);
         }
 
-        public void RemoveEvent(int DayOfTheMonth, int Month, int Year, string EventStart, string EventEnd, int EventNumber)
+        public void RemoveEvent(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, int EventNumber)
         {
             DateTime _eventDate = new DateTime();
-            _eventDate = DateTime.Parse(DayOfTheMonth + "/" + Month + "/" + Year);
+            _eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
             this.personalCalendar[_eventDate.DayOfYear - 1].RemoveAt(EventNumber);
         }
-        public string[] ToString(int DayOfTheMonth, int Month, int Year)
+        public string[] ToString(int dayOfTheMonth, int month, int year)
         {
             DateTime _eventDate = new DateTime();
-            _eventDate = DateTime.Parse(DayOfTheMonth + "/" + Month + "/" + Year);
+            _eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
 
             int numberOfEvents = this.personalCalendar[_eventDate.DayOfYear - 1].Count;
             string[] result = new string[numberOfEvents];
