@@ -9,16 +9,11 @@
 
     public static class UI
     {
-        private static bool idCorrect;
-        private static bool pwdCorrect;
-        private static bool adminLogin;
-        private static bool userLogin;
-        private static string username;
-        private static string password;
+        private static bool idCorrect, pwdCorrect, adminLogin, userLogin;
 
         public static void ShowMainMenu()
         {
-            Console.SetWindowSize(Console.LargestWindowWidth, Console.WindowHeight);
+            Console.SetWindowSize(150, Console.WindowHeight);
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("╔═══════════════════════════════════════════════╗");
             Console.WriteLine("║ Welcome to Team Nectarine's Schedule Manager! ║");
@@ -26,21 +21,24 @@
             Console.WriteLine("║    [2] to log in as user.                     ║");
             Console.WriteLine("║    [Esc] to quit.                             ║");
             Console.WriteLine("╚═══════════════════════════════════════════════╝");
-            Console.WriteLine("Make your selection: ");
+            Console.WriteLine("Make your selection:");
             ConsoleKeyInfo cki;
+            bool showMainMenu = true;
 
-            do
+            while (showMainMenu)
             {
-                cki = Console.ReadKey(true);
+                cki = Console.ReadKey();
 
                 switch (cki.Key)
                 {
                     case ConsoleKey.D1:
                         adminLogin = true;
+                        showMainMenu = false;
                         AdminLogin();
                         break;
                     case ConsoleKey.D2:
                         userLogin = true;
+                        showMainMenu = false;
                         UserLogin();
                         break;
                     case ConsoleKey.Escape:
@@ -49,14 +47,6 @@
                         Console.WriteLine("Wrong selection. Try again: ");
                         break;
                 }
-            } while (cki.Key != ConsoleKey.D1 && cki.Key != ConsoleKey.D2);
-
-            while (!idCorrect || !pwdCorrect)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nWrong credentials. Try again.");
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                UserLogin();
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
@@ -75,33 +65,32 @@
 
         private static void ShowUserMenu()
         {
-            Console.WriteLine("What do you want to do next: ");
-            Console.WriteLine("     [1] Check daily schedule");
-            Console.WriteLine("     [2] Check weekly schedule");
-            Console.WriteLine("     [3] Log-out user");
-            Console.WriteLine("     [Esc] to quit");
+            bool showUserMenu = true;
             ConsoleKeyInfo cki;
-
-            var worker = new Worker("cenko91", "blabla12345", "Cenko", "Chokov");
-            do
+            while (showUserMenu)
             {
-                cki = Console.ReadKey(true);
+                Console.WriteLine("[1] Check daily schedule");
+                Console.WriteLine("[2] Check weekly schedule");
+                Console.WriteLine("[3] Log-out user");
+                Console.WriteLine("[Esc] to quit");
+                Console.WriteLine("Choose what to do next:");
+
+                cki = Console.ReadKey();
 
                 switch (cki.Key)
                 {
                     case ConsoleKey.D1:
-                        DisplayScheduleDay(worker);
-                        ShowUserMenu();
+                        DisplayScheduleDay();
                         break;
                     case ConsoleKey.D2:
-                        DisplayScheduleWeek(worker);
-                        ShowUserMenu();
+                        DisplayScheduleWeek();
                         break;
                     case ConsoleKey.D3:
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Log-out success!");
+                        Console.WriteLine("\nLog-out success!");
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         ShowMainMenu();
+                        showUserMenu = false;
                         break;
                     case ConsoleKey.Escape:
                         return;
@@ -109,7 +98,7 @@
                         Console.WriteLine("Wrong selection. Try again: ");
                         break;
                 }
-            } while (cki.Key != ConsoleKey.D1 && cki.Key != ConsoleKey.D2 && cki.Key != ConsoleKey.D3);
+            }
         }
 
         private static void ShowAdminMenu()
@@ -119,10 +108,24 @@
 
         private static void UserLogin()
         {
-            Console.Write("Username: ");
-            GetUsername();
+            // create sample worker to test user login
+            RegularWorker rw = new RegularWorker("stamo99", "stamat12345", "Stamat", "Haralambov");
+            DataBase.Save(rw);
+
+            Console.Write("\nUsername: ");
+            //GetUsername();
+            var id = Console.ReadLine();
             Console.Write("Password: ");
-            GetPassword();
+            //GetPassword();
+            var pwd = Console.ReadLine();
+
+            while (!DataBase.IsValidLoginData(id, pwd))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nWrong credentials. Try again:");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                UserLogin();
+            }
         }
 
         private static void AdminLogin()
@@ -178,7 +181,6 @@
                 if (sr.ReadToEnd().Contains(id))
                 {
                     idCorrect = true;
-                    username = id;
                 }
             }
         }
@@ -190,25 +192,25 @@
                 if (sr.ReadToEnd().Contains(pwd.ToString()))
                 {
                     pwdCorrect = true;
-                    password = pwd;
                 }
             }
         }
 
-        private static void DisplayScheduleWeek(Worker worker)
+        private static void DisplayScheduleWeek()
         {
-            Dictionary<string, string> activities = new Dictionary<string, string>();
+            // sample activities
+            var activities = new Dictionary<string, string>();
             activities.Add("In Training", "10:00 - 14:00");
             activities.Add("Backoffice", "14:00 - 15:00");
             activities.Add("Lunch", "15:00 - 16:00");
             activities.Add("Break", "17:00 - 17:10");
             activities.Add("Party", "19:00 - 22:00");
 
-            var tableWeek = new TableWeek(activities);
-            tableWeek.FillAndShow();
+            Table tableWeek = new TableWeek(activities);
+            tableWeek.FillAndDraw();
         }
 
-        private static void DisplayScheduleDay(Worker worker)
+        private static void DisplayScheduleDay()
         {
             //foreach (var someEvent in worker.PersonalCalendar.GetDailySchedule(52, DayOfWeek.Monday))
             //{
@@ -216,15 +218,15 @@
             //    Console.WriteLine($"{someEvent.EventStart} - {someEvent.EventEnd}");
             //}
 
-            Dictionary<string, string> activities = new Dictionary<string, string>();
+            var activities = new Dictionary<string, string>();
             activities.Add("In Training", "10:00 - 14:00");
             activities.Add("Backoffice", "14:00 - 15:00");
             activities.Add("Lunch", "15:00 - 16:00");
             activities.Add("Break", "17:00 - 17:10");
             activities.Add("Party", "19:00 - 22:00");
 
-            var tableDay = new TableDay(activities);
-            tableDay.FillAndShow();
+            Table tableDay = new TableDay(activities);
+            tableDay.FillAndDraw();
         }
     }
 }

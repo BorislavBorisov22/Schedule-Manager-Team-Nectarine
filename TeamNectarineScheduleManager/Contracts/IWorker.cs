@@ -8,7 +8,7 @@ namespace TeamNectarineScheduleManager.Users
         PersonalCalendar PersonCalendar { get; set; }
         string Team { get; }
 
-        void AddEventToCalendar(DailyEvent workerDailyEvent);
+        void AddEventToCalendar(DailyEvents workerDailyEvent);
         void AddToTeam(ITeam team);
         string NFDBGetTeamName();
         void NFDBSetTeamName();
