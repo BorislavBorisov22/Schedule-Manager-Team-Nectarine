@@ -5,7 +5,7 @@
 
     public interface ITeam
     {
-        List<Worker> Members { get; }
+        ICollection<IWorker> Members { get; }
 
         int MembersCount { get; }
 
@@ -13,10 +13,13 @@
 
         string TeamName { get; }
 
-        void AddMember(RegularWorker worker);
+        void AddMember(IWorker worker);
+
         void NFDBClearMembersAndLeader();
 
         List<string> NFDBGetRegularWorkerNames();
+
+        void RemoveMemeber(RegularWorker worker);
 
         string NFDBGetTeamLeaderName();
 
@@ -24,6 +27,5 @@
 
         void NFDBSetTeamLeaderName();
 
-        void RemoveMemeber(RegularWorker worker);
     }
 }

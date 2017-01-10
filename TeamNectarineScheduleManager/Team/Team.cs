@@ -16,7 +16,7 @@
     {
         private const string defaultTeamName = "Global team"; 
 
-        private ICollection<Worker> members;
+        private ICollection<IWorker> members;
 
         public Team(TeamLeaderWorker teamLeader)
             :this(defaultTeamName, teamLeader)
@@ -39,7 +39,7 @@
             }
         }
 
-        public List<Worker> Members
+        public ICollection<IWorker> Members
         {
             get
             {
@@ -51,7 +51,7 @@
 
         public string TeamName { get; private set; }
 
-        public void AddMember(RegularWorker worker)
+        public void AddMember(IWorker worker)
         {
             this.members.Add(worker);
             worker.AddToTeam(this);

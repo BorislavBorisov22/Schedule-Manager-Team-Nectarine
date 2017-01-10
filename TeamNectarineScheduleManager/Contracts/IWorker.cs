@@ -2,7 +2,7 @@
 
 namespace TeamNectarineScheduleManager.Users
 {
-    public interface IWorker
+    public interface IWorker : IEmployee
     {
         ITeam NFDBTeamCheckBypass { get; set; }
         PersonalCalendar PersonCalendar { get; set; }
