@@ -377,11 +377,11 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
 
                         // Attach the team to the added users.
 
-                        result.TeamLeader.AddToTeam(result);
-                        for (int i = 0; i < result.Members.Count; i++)
-                        {
-                            result.Members[i].AddToTeam(result);
-                        }
+                        //result.TeamLeader.AddToTeam(result);
+                        //for (int i = 0; i < result.Members.Count; i++)
+                        //{
+                        //    result.Members[i].AddToTeam(result);
+                        //}
 
                         return result;
                     }

@@ -9,6 +9,7 @@
         OnHoliday,
         Sick,
         Lunch,
-        InTraining
+        InTraining,
+        Meeting
     }
 }

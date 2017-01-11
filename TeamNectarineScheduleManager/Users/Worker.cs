@@ -3,72 +3,37 @@
     // using TeamCalendars;
     using System;
     using Calendars;
+    using Contracts;
+    using Teams;
 
     [Serializable]
 
-    public class Worker : Employee, ILoggable, IEmployee, IWorker
+    public class Worker : Employee, ILoggable, IEmployee, IWorker, ISchedulable
     {
-        private ITeam team;
-        private PersonalCalendar personalCalendar;
-
+        private ICalendar personalCalendar;
+        
         public Worker(string username, string password, string firstName, string lastName)
             : base(username, password, firstName, lastName)
         {
             this.UserType = UserType.RegularWorker;
-            this.PersonCalendar = new PersonalCalendar();
+            this.personalCalendar = new PersonalCalendar();
         }
 
-        public string Team
-        {
-            get
-            {
-                if (this.team == null)
-                {
-                    return "No current Team";
-                }
-
-                return this.team.TeamName;
-            }
-        }
+        protected ITeam Team { get;  set; }
        
-        public PersonalCalendar PersonCalendar
+        public void AddEventToCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt)
         {
-            get
-            {
-                return this.personalCalendar;
-            }
-
-            set
-            {
-                ValidateNull(value, "Worker's personal calendar cannot be null!");
-
-                this.personalCalendar = value;
-            }
+            this.personalCalendar.AddEvent(dayOfTheMonth, month, year, eventStart, eventEnd, evt);
         }
 
-        public void AddToTeam(ITeam team)
+        public void RemoveEventFromCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt)
         {
-            if (this.team != null)
-            {
-                throw new InvalidOperationException("Adding a team to a worker who already has a team is not allowed");
-            }
-
-            if (team == null)
-            {
-                throw new ArgumentNullException("Cannot add null value to worker's team");
-            }
-
-            this.team = team;
+            this.personalCalendar.RemoveEvent(dayOfTheMonth, month, year, eventStart, eventEnd, evt);
         }
 
-        public void RemoveFromTeam()
+        public string[] GetEventForDay(int dayOfTheMonth, int month, int year)
         {
-            this.team = null;
-        }
-
-        public void AddEventToCalendar(DailyEvents workerDailyEvent)
-        {
-            this.PersonCalendar.AddEvent(workerDailyEvent);
+            return this.personalCalendar.ToString(dayOfTheMonth, month, year);
         }
 
         private void ValidateNull(object obj, string message = null)
@@ -85,9 +50,9 @@
 
         public void NFDBSetTeamName()
         {
-            if (team != null)
+            if (this.Team != null)
             {
-                NFDBTeamName = team.TeamName;
+                NFDBTeamName = this.Team.TeamName;
             }
             else
             {
@@ -102,8 +67,8 @@
 
         public ITeam NFDBTeamCheckBypass
         {
-            get { return team; }
-            set { team = value; }
+            get { return this.Team; }
+            set { this.Team = value; }
         }
 
         #endregion

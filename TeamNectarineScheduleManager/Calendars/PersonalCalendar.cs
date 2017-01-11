@@ -10,7 +10,6 @@
 
         public PersonalCalendar()
         {
-
         }
 
         public PersonalCalendar(DateTime[] plannedLeave)

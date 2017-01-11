@@ -1,6 +1,7 @@
-﻿namespace TeamNectarineScheduleManager
+﻿namespace TeamNectarineScheduleManager.Teams
 {
     using System.Collections.Generic;
+    using TeamNectarineScheduleManager.Calendars;
     using TeamNectarineScheduleManager.Users;
 
     public interface ITeam
@@ -10,16 +11,17 @@
         int MembersCount { get; }
 
         TeamLeaderWorker TeamLeader { get; set; }
-
         string TeamName { get; }
 
-        void AddMember(IWorker worker);
+        void AddEventToCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt);
+
+        void AddMember(RegularWorker worker);
+
+        string[] GetEventForDay(int dayOfTheMonth, int month, int year);
 
         void NFDBClearMembersAndLeader();
 
         List<string> NFDBGetRegularWorkerNames();
-
-        void RemoveMemeber(RegularWorker worker);
 
         string NFDBGetTeamLeaderName();
 
@@ -27,5 +29,8 @@
 
         void NFDBSetTeamLeaderName();
 
+        void RemoveEventFromCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt);
+
+        void RemoveMemeber(RegularWorker worker);
     }
 }
