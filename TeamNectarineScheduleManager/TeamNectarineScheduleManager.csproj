@@ -44,7 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calendars\DayOfWeek.cs" />
-    <Compile Include="Calendars\Events.cs" />
+    <Compile Include="Calendars\EventType.cs" />
     <Compile Include="DataBaseLib\DataBase.cs" />
     <Compile Include="DataBaseLib\Encryptor.cs" />
     <Compile Include="ExtensionMethods\StringExtensions.cs" />

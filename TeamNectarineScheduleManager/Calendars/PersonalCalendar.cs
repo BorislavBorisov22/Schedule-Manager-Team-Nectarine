@@ -2,7 +2,7 @@
 {
     using System;
 
-    [Serializable()]
+    [Serializable]
     public class PersonalCalendar : Calendar
     {
         private const int DaysLeave = 20; // this is how many days of paid leave every employee has

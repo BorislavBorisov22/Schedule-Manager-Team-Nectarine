@@ -2,23 +2,23 @@
 {
     using System;
 
-    [Serializable()]
-    public class DailyEvents
+    [Serializable]
+    public class DailyEvent
     {
-        private Events _event;
-        private DateTime _eventStart;
-        private DateTime _eventLenght;
-
-        public DailyEvents()
+        public DailyEvent()
         {
 
         }
 
-        public DailyEvents(DateTime eventStart, DateTime eventLenght, Events currentEvent = Events.offDuty)
+        public DailyEvent(DateTime eventStart, DateTime eventEnd, EventType eventType = EventType.offDuty)
         {
-            this._event = currentEvent;
-            this._eventStart = eventStart;
-            this._eventLenght = eventLenght;
+            this.EventType = eventType;
+            this.EventStart = eventStart;
+            this.EventEnd = eventEnd;
         }
+
+        public EventType EventType { get; set; }
+        public DateTime EventStart { get; set; }
+        public DateTime EventEnd { get; set; }
     }
 }

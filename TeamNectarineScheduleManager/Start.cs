@@ -11,18 +11,8 @@
     {
         public static void Main()
         {
-            //var peshoWorker = new Worker("pesho555", "910011abc", "Pesho", "Stamatov");
-            //var peshoCalendar = new PersonalCalendar();
-            //peshoWorker.PersonCalendar = peshoCalendar;
-            //DataBase.WriteToDisc(peshoWorker);
-
-            //Worker pesho2 = DataBase.ReadFromDiscWorker("pesho555");
-            //Console.WriteLine(pesho2.Username);
-            //Console.WriteLine(pesho2.Password);
-            //Console.WriteLine(pesho2.FirstName);
-            //Console.WriteLine(pesho2.LastName);
-
-            //UI.ShowMainMenu();
+            //TestDataBase();
+            UI.ShowMainMenu();
             // Test Team class
             //Test_Team_Class();
             // Test_Workers_And_Admins_Instances();
