@@ -2,59 +2,38 @@
 {
     // using TeamCalendars;
     using System;
-
     using Calendars;
+    using Contracts;
+    using Teams;
 
     [Serializable]
-    public class Worker : Employee, ILoggable, IEmployee
-    {
-        private Team team;
-        private PersonalCalendar personalCalendar;
 
+    public class Worker : Employee, ILoggable, IEmployee, IWorker, ISchedulable
+    {
+        private ICalendar personalCalendar;
+        
         public Worker(string username, string password, string firstName, string lastName)
             : base(username, password, firstName, lastName)
         {
             this.UserType = UserType.RegularWorker;
+            this.personalCalendar = new PersonalCalendar();
         }
 
-        public Team Team
+        protected ITeam Team { get;  set; }
+       
+        public void AddEventToCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt)
         {
-            get
-            {
-                return this.team;
-            }
-
-            protected set
-            {
-                ValidateNull(value, "Worker's team cannot be null!");
-
-                this.Team = value;
-            }
+            this.personalCalendar.AddEvent(dayOfTheMonth, month, year, eventStart, eventEnd, evt);
         }
 
-        public PersonalCalendar PersonCalendar
+        public void RemoveEventFromCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt)
         {
-            get
-            {
-                return this.personalCalendar;
-            }
-
-            set
-            {
-                ValidateNull(value, "Worker's personal calendar cannot be null!");
-
-                this.personalCalendar = value;
-            }
+            this.personalCalendar.RemoveEvent(dayOfTheMonth, month, year, eventStart, eventEnd, evt);
         }
 
-        public void AddTeam(Team team)
+        public string[] GetEventForDay(int dayOfTheMonth, int month, int year)
         {
-            if (this.team != null)
-            {
-                throw new InvalidOperationException("Adding a team to a worker who already has a team is not allowed");
-            }
-
-            this.Team = team;
+            return this.personalCalendar.ToString(dayOfTheMonth, month, year);
         }
 
         private void ValidateNull(object obj, string message = null)
@@ -71,9 +50,9 @@
 
         public void NFDBSetTeamName()
         {
-            if (team != null)
+            if (this.Team != null)
             {
-                NFDBTeamName = team.TeamName;
+                NFDBTeamName = this.Team.TeamName;
             }
             else
             {
@@ -86,10 +65,10 @@
             return NFDBTeamName;
         }
 
-        public Team NFDBTeamCheckBypass
+        public ITeam NFDBTeamCheckBypass
         {
-            get { return team; }
-            set { team = value; }
+            get { return this.Team; }
+            set { this.Team = value; }
         }
 
         #endregion

@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TeamNectarineScheduleManager.Calendars.Calendar" Collapsed="true">
+    <Position X="6.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAgBAAAEAAAEAAIQAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Calendars\Calendar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Calendars.CompanyCalendar" Collapsed="true">
+    <Position X="7.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAACAAAAAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Calendars\CompanyCalendar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Calendars.DailyEvent" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAACEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Calendars\DailyEvents.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Calendars.PersonalCalendar" Collapsed="true">
+    <Position X="5.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Calendars\PersonalCalendar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.DataBaseLibrary.DataBase" Collapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AGIAAJgAAAICGYgUAgoAAAAAQAEIQICAEQgEAAAAAAA=</HashCode>
+      <FileName>DataBaseLib\DataBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.DataBaseLibrary.Encryptor" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAABgAAACAAAAIAAAEAAAAAAAAEAIAAgEAAAAQAA=</HashCode>
+      <FileName>DataBaseLib\Encryptor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExtensionMethods.StringExtensions" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>ExtensionMethods\StringExtensions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Start" Collapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAQAAAAAAAAAAQAAAABAAAAAA=</HashCode>
+      <FileName>Start.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Team" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABACAAAAAAAAACAAAAACAAABAQCAEgQgAAIEQAAAAQA=</HashCode>
+      <FileName>Team\Team.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Table.Table" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gIEgAAAAAAAAAAAAgAAIAABAAAAAAAAAAEAAAAEABAA=</HashCode>
+      <FileName>Table\Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Table.TableDay" Collapsed="true">
+    <Position X="0.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Table\TableDay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Table.TableWeek" Collapsed="true">
+    <Position X="2.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Table\TableWeek.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.UserInterface.UI" Collapsed="true">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EQAQAAAAAAAAECgAABAAAgEAAAAAAEAQACEAApABAAA=</HashCode>
+      <FileName>UI\UI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Users.Administrator" Collapsed="true">
+    <Position X="0.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Users\Administrator.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Users.Employee" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAEAAAABAAAAEAAAAAAAAAAAAAAAAAAAACAAAAAg=</HashCode>
+      <FileName>Users\Employee.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Users.RegularWorker" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Users\RegularWorker.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Users.TeamLeaderWorker" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Users\TeamLeaderWorker.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Users.User" Collapsed="true">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACgAAAAAAAAAEAQAAAAEAAAAACAACAAAAAoAAAAA=</HashCode>
+      <FileName>Users\User.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="TeamNectarineScheduleManager.Users.Worker" Collapsed="true">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAIAEAAgEgABAQACAAAAAAAAAQAAAAEAAAAAAAABA=</HashCode>
+      <FileName>Users\Worker.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="TeamNectarineScheduleManager.ITeam" Collapsed="true">
+    <Position X="10.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABACAAAAAAAAACAAAAACAAABAQAAEgAAAAIEAAAAAQA=</HashCode>
+      <FileName>Team\ITeam.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TeamNectarineScheduleManager.Users.IEmployee" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Users\IEmployee.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="TeamNectarineScheduleManager.Users.ILoggable" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAQAAAAAAAAAACAACAAAAAAAAAAA=</HashCode>
+      <FileName>Users\ILoggable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="TeamNectarineScheduleManager.Calendars.DayOfWeek" Collapsed="true">
+    <Position X="12" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAIAACAAAAAAAAAAACAAIACAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Calendars\DayOfWeek.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TeamNectarineScheduleManager.Calendars.EventType" Collapsed="true">
+    <Position X="13.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAIAAAAAAAACAAAAgAABAgAABAAAAAAQAAAAAA=</HashCode>
+      <FileName>Calendars\EventType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TeamNectarineScheduleManager.Calendars.Month" Collapsed="true">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAEgAAABRAAAAAAQAwgAAAAAAQAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Calendars\Month.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TeamNectarineScheduleManager.ContractType" Collapsed="true">
+    <Position X="10.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Users\ContractType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TeamNectarineScheduleManager.Users.UserType" Collapsed="true">
+    <Position X="12" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAQAAAAAAAgAAAAAAAAAAABA=</HashCode>
+      <FileName>Users\UserType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

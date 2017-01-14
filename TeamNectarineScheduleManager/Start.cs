@@ -2,27 +2,59 @@
 {
     using System;
     using System.Collections.Generic;
+
     using Users;
     using DataBaseLibrary;
     using UserInterface;
     using Calendars;
+    using Teams;
 
     public class Start
     {
         public static void Main()
         {
+            
+
+            //var teamEvent = peshoLeader.Get()
             //TestDataBase();
-            UI.ShowMainMenu();
+            // UI.ShowMainMenu();
             // Test Team class
             //Test_Team_Class();
-            // Test_Workers_And_Admins_Instances();
+            //Test_Workers_And_Admins_Instances();
+        }
+
+        public static void TeastUsersWorkingWithCalendars()
+        {
+            TeamLeaderWorker peter = new TeamLeaderWorker("Peter", "CertifiedIdiot12345", "Peter", "Griffin", "StrawBerry");
+            RegularWorker lois = new RegularWorker("Loiss", "HouseWife12345", "Lois", "Griffin");
+            RegularWorker chris = new RegularWorker("Chris", "BaseballCap12345", "Chris", "Griffin");
+            RegularWorker brian = new RegularWorker("Brian", "TalkingDoggo12345", "Brian", "Griffin");
+
+            peter.AddMemberToTeam(lois);
+            peter.AddMemberToTeam(chris);
+            peter.AddMemberToTeam(brian);
+
+            peter.AddEventToTeamCalendar(12, 12, 2017, "12:20", "12:40", EventType.Meeting);
+            peter.AddEventToTeamCalendar(12, 12, 2017, "12:20", "12:40", EventType.Meeting);
+            peter.AddEventToTeamCalendar(12, 12, 2017, "12:20", "12:40", EventType.Meeting);
+            peter.AddEventToTeamCalendar(12, 12, 2017, "12:20", "12:40", EventType.Meeting);
+            peter.RemoveEventFromTeamCalendar(12, 12, 2017, "12:20", "12:40", EventType.Meeting);
+
+            var loisEvents = lois.GetEventForDay(12, 12, 2017);
+            var chrisEvents = chris.GetEventForDay(12, 12, 2017);
+            var brianEvents = brian.GetEventForDay(12, 12, 2017);
+
+            Console.WriteLine(loisEvents.Length);
+            Console.WriteLine(chrisEvents.Length);
+            Console.WriteLine(brianEvents.Length);
+
         }
 
         public static void Test_Team_Class()
         {
             var teamLeader = new TeamLeaderWorker("IvanIvanov1", "0875123a", "Ivan", "Ivanov");
             var teamMemeber = new RegularWorker("PepoPepov22", "14234123a", "Petar", "Petrov");
-            var anotherTeamMember = new RegularWorker("Vancheto_sladurancheto", "gjk654322232.", "Ivanka", "Vancheva");
+            var anotherTeamMember = new RegularWorker("Vancheto_петрова", "gjk654322232.", "Ivanka", "Vancheva");
             var team = new Team("Nectarine", teamLeader);
             team.AddMember(teamMemeber);
             team.AddMember(anotherTeamMember);
@@ -31,6 +63,14 @@
                 Console.WriteLine(member);
                 Console.WriteLine("--------");
             }
+
+            var vankataLeader = new TeamLeaderWorker("Gosho", "goshumbata1234324", "Georgi", "Georgiev");
+            var vankataTeam = new Team("Nectarine", vankataLeader);
+            var regularWorker = new RegularWorker("pepito54321", "13241fdasf", "Petar", "Petrov");
+            team.AddMember(regularWorker);
+            Console.WriteLine(regularWorker.TeamInfo);
+            team.RemoveMemeber(regularWorker);
+            Console.WriteLine(regularWorker.TeamInfo);
         }
 
         public static void Test_Workers_And_Admins_Instances()
@@ -61,7 +101,6 @@
             theGriffins.AddMember(chris);
             theGriffins.AddMember(brian);
 
-
             DataBase.Save(peter);
             DataBase.Save(lois);
             DataBase.Save(chris);
@@ -70,10 +109,10 @@
 
             TeamLeaderWorker peterReloaded = DataBase.LoadTeamLeader(peter.Username);
             Console.WriteLine($"{peterReloaded.Username} {peterReloaded.Password} {peterReloaded.FirstName } {peterReloaded.LastName}");
-            for (int i = 0; i < peterReloaded.Team.MembersCount; i++)
-            {
-                Console.WriteLine($"{peterReloaded.Team.Members[i].Username} {peterReloaded.Team.Members[i].Password} {peterReloaded.Team.Members[i].FirstName} {peterReloaded.Team.Members[i].LastName} ");
-            }
+            //for (int i = 0; i < peterReloaded.Team.MembersCount; i++)
+            //{
+            //    Console.WriteLine($"{peterReloaded.Team.Members[i].Username} {peterReloaded.Team.Members[i].Password} {peterReloaded.Team.Members[i].FirstName} {peterReloaded.Team.Members[i].LastName} ");
+            //}
         }
     }
 }

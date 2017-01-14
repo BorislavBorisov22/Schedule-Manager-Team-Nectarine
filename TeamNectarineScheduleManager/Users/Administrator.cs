@@ -1,10 +1,13 @@
 ﻿namespace TeamNectarineScheduleManager.Users
 {
+    using Calendars;
     using System;
 
     [Serializable]
     public class Administrator : Employee, ILoggable, IEmployee
     {
+        private CompanyCalendar companyCalendar;
+
         public Administrator(string username, string password, string firstName, string lastName) 
             : base(username, password, firstName, lastName)
         {

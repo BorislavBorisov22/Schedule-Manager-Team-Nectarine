@@ -15,6 +15,8 @@
             this.LastName = lastName;
         }
 
+        public ContractType ContractType { get; set; }
+
         public string FirstName
         {
             get

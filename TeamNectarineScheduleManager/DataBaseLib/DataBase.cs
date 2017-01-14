@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using TeamNectarineScheduleManager.Users;
+using TeamNectarineScheduleManager.Teams;
 
 namespace TeamNectarineScheduleManager.DataBaseLibrary
 {
@@ -376,11 +377,11 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
 
                         // Attach the team to the added users.
 
-                        result.TeamLeader.AddTeam(result);
-                        for (int i = 0; i < result.Members.Count; i++)
-                        {
-                            result.Members[i].AddTeam(result);
-                        }
+                        //result.TeamLeader.AddToTeam(result);
+                        //for (int i = 0; i < result.Members.Count; i++)
+                        //{
+                        //    result.Members[i].AddToTeam(result);
+                        //}
 
                         return result;
                     }

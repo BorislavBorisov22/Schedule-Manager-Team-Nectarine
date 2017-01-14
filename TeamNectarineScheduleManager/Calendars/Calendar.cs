@@ -2,51 +2,78 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text;
 
-    [Serializable]
-    public class Calendar
+    public class Calendar : DailyEvents, ICalendar
     {
-        private Month _month;
-        private int _week; // specify week number, must be between 1 and 53 inclusive
-        private DayOfWeek _day;
-        public List<DailyEvent> _employeeDailyEvents;//Creates list of with events for the current calendar.
+        public List<DailyEvents>[] day;
         private static readonly DateTime[] officialHolidays; // initialize with dates of official holidays
 
         public Calendar()
         {
+            day = new List<DailyEvents>[366];
+            List<DailyEvents> dailySchedule = new List<DailyEvents>();
+            day = new List<DailyEvents>[366];
 
-        }
-
-        public Calendar(Month month, int week, DayOfWeek day)
-        {
-            this._month = month;
-            this._day = day;
-            this._week = week;
-            _employeeDailyEvents = new List<DailyEvent>();
-        }
-        public List<DailyEvent> CalendarEvents
-        {
-            get
+            List<DailyEvents> daySchedule = new List<DailyEvents>();
+            for (int i = 0; i < 366; i++)
             {
-                return _employeeDailyEvents;
-            }
-            set
-            {
-                _employeeDailyEvents = value;
+                day[i] = new List<DailyEvents>();
             }
         }
-        public List<DailyEvent> AddEvent(DailyEvent currentEvent, Calendar calendar)
+
+        public void AddEvent(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt)
         {
-            calendar.CalendarEvents.Add(currentEvent);
-            return CalendarEvents;
+            DailyEvents _event = new DailyEvents(dayOfTheMonth, month, year, eventStart, eventEnd, evt);
+            DateTime _eventDate = new DateTime(year, month, dayOfTheMonth);
+           // _eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
+            this.day[_eventDate.DayOfYear - 1].Add(_event);
         }
-        // Adds event for the current caledar
-        public List<DailyEvent> RemoveEvent(int removeIndex, Calendar calendar)
+
+        public void RemoveEvent(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType eventType)
         {
-            calendar.CalendarEvents.RemoveAt(removeIndex);
-            return CalendarEvents;
+
+            DateTime _eventDate = new DateTime(year, month, dayOfTheMonth);
+            int targetDay = _eventDate.DayOfYear - 1;
+            var eventToSearch = new DailyEvents(dayOfTheMonth, month, year, eventStart, eventEnd, eventType);
+            int targetIndex = -1;
+
+            for (int i = 0; i < this.day[targetDay].Count; ++i)
+            {
+                bool isMatch = this.day[targetDay][i].Event == eventToSearch.Event &&
+                    this.day[targetDay][i].EventStart == eventToSearch.EventStart &&
+                    this.day[targetDay][i].EventEnd == eventToSearch.EventEnd;
+
+                if (isMatch)
+                {
+                    targetIndex = i;
+                    break;
+                }
+            }
+
+            if (targetIndex != -1)
+            {
+                this.day[targetDay].RemoveAt(targetIndex);
+            }
+            //_eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
+           
+            //this.day[_eventDate.DayOfYear - 1].RemoveAt(eventNumber);
         }
-        // Removes event from the current calendar
+
+        public string[] ToString(int dayOfTheMonth, int month, int year)
+        {
+            DateTime _eventDate = new DateTime(year, month, dayOfTheMonth);
+            //_eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
+
+            int numberOfEvents = this.day[_eventDate.DayOfYear - 1].Count;
+            string[] result = new string[numberOfEvents];
+
+            for (int i = 0; i < numberOfEvents; i++)
+            {
+                result[i] = "EventNumber[" + i + "] " + this.day[_eventDate.DayOfYear - 1][i].ToString();
+            }
+
+            return result;
+        }
     }
-
 }

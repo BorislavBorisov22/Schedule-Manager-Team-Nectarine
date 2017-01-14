@@ -2,7 +2,9 @@
 {
     using System;
 
+    using AppExceptions;
     [Serializable]
+
     public abstract class User : ILoggable
     {
         // needed for log-in
@@ -26,7 +28,7 @@
             {
                 if (!IsUsernameValid(value))
                 {
-                    throw new ArgumentException("Invalid username! Username should be at least 5 symbols long and can contain only letters digits or dot symbols");
+                    throw new InvalidUsernameException();
                 }
 
                 this.username = value;
@@ -46,7 +48,7 @@
             {
                 if (!IsPasswordValid(value))
                 {
-                    throw new ArgumentException("Invalid password! Password should contain at least one letter symbol and at least 5 digit symbols");
+                    throw new InvalidPasswordException();
                 }
 
                 this.password = value;
