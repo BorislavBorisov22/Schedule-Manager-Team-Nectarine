@@ -2,6 +2,7 @@
 
 namespace TeamNectarineScheduleManager.Calendars
 {
+    [Serializable]
     public class CompanyCalendar : Calendar
     {
         private const int DaysInAWeek = 7;

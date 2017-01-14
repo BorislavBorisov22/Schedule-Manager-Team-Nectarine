@@ -8,7 +8,7 @@
 
     [Serializable]
 
-    public class Worker : Employee, ILoggable, IEmployee, IWorker, ISchedulable
+    public class Worker : Employee, ILoggable, IEmployee, ISchedulable
     {
         private ICalendar personalCalendar;
         
@@ -19,7 +19,7 @@
             this.personalCalendar = new PersonalCalendar();
         }
 
-        public ITeam Team { get;  set; }
+        public Team Team { get;  set; }
        
         public void AddEventToCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt)
         {
@@ -65,7 +65,7 @@
             return NFDBTeamName;
         }
 
-        public ITeam NFDBTeamCheckBypass
+        public Team NFDBTeamBypass
         {
             get { return this.Team; }
             set { this.Team = value; }

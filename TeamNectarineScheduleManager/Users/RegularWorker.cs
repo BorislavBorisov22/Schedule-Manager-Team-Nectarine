@@ -7,7 +7,7 @@
 
     [Serializable]
 
-    public class RegularWorker : Worker, ILoggable, IEmployee, IRegularWorker
+    public class RegularWorker : Worker, ILoggable, IEmployee
     {
         public RegularWorker(string username, string password, string firstName, string lastName ,Team team = null)
             : base(username, password, firstName, lastName)
@@ -28,7 +28,7 @@
             }
         }
 
-        public void JoinTeam(ITeam team)
+        public void JoinTeam(Team team)
         {
             this.Team = team;
         }
