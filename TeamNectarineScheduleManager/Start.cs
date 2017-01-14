@@ -13,8 +13,6 @@
     {
         public static void Main()
         {
-            
-
             //var teamEvent = peshoLeader.Get()
             //TestDataBase();
             // UI.ShowMainMenu();

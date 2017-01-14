@@ -19,7 +19,7 @@
             this.personalCalendar = new PersonalCalendar();
         }
 
-        protected ITeam Team { get;  set; }
+        public ITeam Team { get;  set; }
        
         public void AddEventToCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt)
         {
