@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Text;
 
+    [Serializable]
     public class Calendar : DailyEvents, ICalendar
     {
         public List<DailyEvents>[] day;

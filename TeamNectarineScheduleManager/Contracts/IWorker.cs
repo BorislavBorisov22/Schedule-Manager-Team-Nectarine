@@ -6,7 +6,7 @@
 
     public interface IWorker : IEmployee
     {
-        ITeam NFDBTeamCheckBypass { get; set; }
+        ITeam NFDBTeamBypass { get; set; }
 
         void AddEventToCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt);
 

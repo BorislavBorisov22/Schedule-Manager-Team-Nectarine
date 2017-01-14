@@ -72,7 +72,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 RegularWorker internalWorker = DeepCopy(regularWorker);
                 internalWorker.NFDBPasswordCheckBypass = Encryptor.EncryptString(internalWorker.Password);
                 internalWorker.NFDBSetTeamName();
-                internalWorker.NFDBTeamCheckBypass = null;
+                internalWorker.NFDBTeamBypass = null;
                 // End of preparation
 
                 if (!Directory.Exists(dataDir))
@@ -118,7 +118,10 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                         // Decrypt Password
                         result.NFDBPasswordCheckBypass = Encryptor.DecryptString(result.NFDBPasswordCheckBypass);
                         // Attach the team.
-                        result.NFDBTeamCheckBypass = LoadTeam(result.NFDBGetTeamName());
+                        result.NFDBTeamBypass = LoadTeam(result.NFDBGetTeamName());
+
+                        // Replace the mirror object in the team with this object
+                        result.NFDBTeamBypass = ReplaceRef(result.NFDBTeamBypass, result);
 
                         return result;
                     }                   
@@ -159,7 +162,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 TeamLeaderWorker internalTeamLeader = DeepCopy(teamLeader);
                 internalTeamLeader.NFDBPasswordCheckBypass = Encryptor.EncryptString(internalTeamLeader.NFDBPasswordCheckBypass);
                 internalTeamLeader.NFDBSetTeamName();
-                internalTeamLeader.NFDBTeamCheckBypass = null;
+                internalTeamLeader.NFDBTeamBypass = null;
                 // End of preparation
 
                 if (!Directory.Exists(dataDir))
@@ -206,7 +209,10 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                         result.NFDBPasswordCheckBypass = Encryptor.DecryptString(result.NFDBPasswordCheckBypass);
 
                         // Attach the team.
-                        result.NFDBTeamCheckBypass = LoadTeam(result.NFDBGetTeamName());
+                        result.NFDBTeamBypass = LoadTeam(result.NFDBGetTeamName());
+
+                        // Replace the mirror object in the team with this object
+                        result.NFDBTeamBypass = ReplaceRef(result.NFDBTeamBypass, result);
 
                         return result;
                     }
@@ -326,8 +332,8 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                 }
                 // Create a deep copy and prepare it for serialization.
                 Team internalTeam = DeepCopy(team);
-                internalTeam.NFDBSetRegularWorkerNames();
                 internalTeam.NFDBSetTeamLeaderName();
+                internalTeam.NFDBSetRegularWorkerNames();
                 internalTeam.NFDBClearMembersAndLeader();
                 // End of preparation
 
@@ -367,20 +373,20 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
                         stream.Close();
 
                         // Attach Users
-                        result.TeamLeader = ReadFromDiscTeamLeaderNoTeam(result.TeamLeader.Username);
+                        result.TeamLeader = LoadTeamLeaderNoTeam(result.NFDBGetTeamLeaderName());
 
                         List<string> regularWorkerNames = result.NFDBGetRegularWorkerNames();
                         for (int i = 0; i < regularWorkerNames.Count; i++)
                         {
-                            result.AddMember(ReadFromDiscRegularWorkerNoTeam(regularWorkerNames[i]));
+                            result.AddMember(LoadRegularWorkerNoTeam(regularWorkerNames[i]));
                         }
 
-                        // Attach the team to the added users.
+                        //Attach the team to the added users.
 
-                        //result.TeamLeader.AddToTeam(result);
+                        //result.NFDBTeamLeaderBypass.NFDBTeamBypass = result;
                         //for (int i = 0; i < result.Members.Count; i++)
                         //{
-                        //    result.Members[i].AddToTeam(result);
+                        //    result.Members[3]
                         //}
 
                         return result;
@@ -908,7 +914,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
             }
         }
 
-        private static RegularWorker ReadFromDiscRegularWorkerNoTeam(string userName)
+        private static RegularWorker LoadRegularWorkerNoTeam(string userName)
         {
             try
             {
@@ -940,7 +946,7 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
             }
         }
 
-        private static TeamLeaderWorker ReadFromDiscTeamLeaderNoTeam(string userName)
+        private static TeamLeaderWorker LoadTeamLeaderNoTeam(string userName)
         {
             try
             {
@@ -970,6 +976,28 @@ namespace TeamNectarineScheduleManager.DataBaseLibrary
             {
                 throw excIOError;
             }
+        }
+
+        private static Team ReplaceRef(Team team, Worker worker)
+        {
+            if (team.NFDBTeamLeaderBypass.Username == worker.Username)
+            {
+                team.NFDBTeamLeaderBypass = (TeamLeaderWorker)worker;
+            }
+            int index = - 1;
+            for (int i = 0; i < team.NFDBMembersBypass.Count; i++)
+            {
+                if (team.NFDBMembersBypass[i].Username == worker.Username)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            if (index != - 1)
+            {
+                team.NFDBMembersBypass[index] = worker;
+            }
+            return team;
         }
 
         #endregion  // End of Private region

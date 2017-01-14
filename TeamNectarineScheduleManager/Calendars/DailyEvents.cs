@@ -3,6 +3,7 @@
     using System;
     using System.Text;
 
+    [Serializable]
     public class DailyEvents
     {
         private EventType _event;

@@ -17,24 +17,24 @@
 
     [Serializable]
 
-    public class Team : ISchedulable, ITeam
-    {
+    public class Team : ISchedulable
+        {
         private ICalendar teamCalendar;
         private const string defaultTeamName = "Global team"; 
 
-        private ICollection<IWorker> members;
+        private List<Worker> members;
         private TeamLeaderWorker teamLeader;
 
         public Team(TeamLeaderWorker teamLeader)
             :this(defaultTeamName, teamLeader)
         {
             this.teamCalendar = new Calendar();
-            this.members = new List<IWorker>();   
+            this.members = new List<Worker>();
         }
 
         public Team(string teamName, TeamLeaderWorker teamLeader)
         {
-            this.members = new List<IWorker>();
+            this.members = new List<Worker>();
             this.TeamName = teamName;
             this.TeamLeader = teamLeader;
             teamLeader.Team = this;
@@ -50,11 +50,11 @@
             }
         }
 
-        public ICollection<IWorker> Members
+        public List<Worker> Members
         {
             get
             {
-                return new List<IWorker>(this.members);
+                return members;
             }
         }
 
@@ -131,7 +131,10 @@
 
             foreach (var member in this.members)
             {
-                NFDBRegularWorkerNames.Add(member.Username);
+                if (member.Username != NFDBTeamLeaderName)
+                {
+                    NFDBRegularWorkerNames.Add(member.Username);
+                }
             }
         }
 
@@ -145,10 +148,22 @@
             NFDBTeamLeaderName = TeamLeader.Username;
         }
 
+        public TeamLeaderWorker NFDBTeamLeaderBypass
+        {
+            get { return this.teamLeader; }
+            set { this.teamLeader = value; }
+        }
+
+        public List<Worker> NFDBMembersBypass
+        {
+            get { return members; }
+        }
+        
+
         public void NFDBClearMembersAndLeader()
         {
             members.Clear();
-            TeamLeader = null;
+            teamLeader = null;
         }
         #endregion
         // Needed for DataBase END

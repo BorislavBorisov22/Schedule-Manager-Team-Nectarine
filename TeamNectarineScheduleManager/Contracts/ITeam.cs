@@ -6,7 +6,7 @@
 
     public interface ITeam
     {
-        ICollection<IWorker> Members { get; }
+        IList<IWorker> Members { get; }
 
         int MembersCount { get; }
 
