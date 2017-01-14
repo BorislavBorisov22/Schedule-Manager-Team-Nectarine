@@ -11,7 +11,10 @@
         public TeamLeaderWorker(string username, string password, string firstName, string lastName, string teamName = "Global Team")
             : base(username, password, firstName, lastName)
         {
-            this.Team = new Team(teamName, this);          
+            if (this.Team == null)
+            {
+                this.Team = new Team(teamName, this);
+            }
         }
 
         public void ReleaseMemberFromTeam(RegularWorker memberToRelease)

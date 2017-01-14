@@ -23,6 +23,7 @@
         private const string defaultTeamName = "Global team"; 
 
         private ICollection<IWorker> members;
+        private TeamLeaderWorker teamLeader;
 
         public Team(TeamLeaderWorker teamLeader)
             :this(defaultTeamName, teamLeader)
@@ -36,6 +37,7 @@
             this.members = new List<IWorker>();
             this.TeamName = teamName;
             this.TeamLeader = teamLeader;
+            teamLeader.Team = this;
             this.members.Add(this.TeamLeader);
             this.teamCalendar = new Calendar();
         }
@@ -56,7 +58,23 @@
             }
         }
 
-        public TeamLeaderWorker TeamLeader { get; set; }
+        public TeamLeaderWorker TeamLeader
+        {
+            get
+            {
+                return this.teamLeader;
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new NullReferenceException("Team leader of a team cannot be null!");
+                }
+
+                this.teamLeader = value;
+            }
+        }
 
         public string TeamName { get; private set; }
 
