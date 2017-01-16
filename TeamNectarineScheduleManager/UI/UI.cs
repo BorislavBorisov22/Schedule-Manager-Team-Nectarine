@@ -7,6 +7,7 @@
     using Table;
     using Users;
     using Teams;
+    using System.Text;
 
     public static class UI
     {
@@ -109,7 +110,7 @@
 
         private static void UserLogin()
         {
-            // create sample team and workes, and save them to test login
+            // create sample team and workers, and save them to test the login
             var teamLeader = new TeamLeaderWorker("IvanIvanov13", "shef4eto1234", "Ivan", "Ivanov");
             var teamMemeber = new RegularWorker("PepoPepov22", "pepun55555", "Petar", "Petrov");
             var anotherTeamMember = new RegularWorker("Stamito333", "staM17000.", "Stamatka", "Chereshova");
@@ -124,7 +125,7 @@
             Console.Write("\nUsername: ");
             var id = Console.ReadLine();
             Console.Write("Password: ");
-            var pwd = Console.ReadLine();
+            var pwd = GetConsolePassword();
 
             while (!DataBase.IsValidLoginData(id, pwd))
             {
@@ -171,6 +172,36 @@
 
             Table tableDay = new TableDay(activities);
             tableDay.FillAndDraw();
+        }
+
+        private static string GetConsolePassword()
+        {
+            var sb = new StringBuilder();
+            while (true)
+            {
+                var cki = Console.ReadKey(true);
+                if (cki.Key == ConsoleKey.Enter)
+                {
+                    Console.WriteLine();
+                    break;
+                }
+
+                if (cki.Key == ConsoleKey.Backspace)
+                {
+                    if (sb.Length > 0)
+                    {
+                        Console.Write("\b\0\b");
+                        sb.Length--;
+                    }
+
+                    continue;
+                }
+
+                Console.Write('*');
+                sb.Append(cki.KeyChar);
+            }
+
+            return sb.ToString();
         }
     }
 }
