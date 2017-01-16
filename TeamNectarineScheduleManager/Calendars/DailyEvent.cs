@@ -59,6 +59,7 @@
                 this.eventType = value;
             }
         }
+
         public string EventStart
         {
             get
@@ -71,6 +72,7 @@
                 this.eventStart = value;
             }
         }
+
         public string EventEnd
         {
             get

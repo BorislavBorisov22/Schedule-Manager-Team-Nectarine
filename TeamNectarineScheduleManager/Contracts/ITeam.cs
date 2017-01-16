@@ -11,6 +11,7 @@
         int MembersCount { get; }
 
         TeamLeaderWorker TeamLeader { get; set; }
+
         string TeamName { get; }
 
         void AddEventToCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt);
