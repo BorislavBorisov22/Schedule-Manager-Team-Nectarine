@@ -13,6 +13,11 @@ The program consists of … classes, … interfaces, … enumerations and ….. 
  -	The Worker class inherits the Employee class and implements the interfaces ILoggable, IEmployee and ISchedulable. The last of the described interfaces serves for adding and removing events in the user calendar. This means that the worker can schedule (add or remove) events by giving day, month, year, start and end for the event. Also event type could be selected from the EventType enumeration, which could be Work, Break, OffDuty, Absent, OnHoliday, Sick, Lunch, InTraining, Meeting.
  -	RegularWorker, TeamLeaderWorker and Administrator classes inherit the Employee class – regular worker could be a team member, and the team leader additionally could add or release members from the team. The team leader can add or remove events in the team calendar, while the administrator can access and work with the company calendar.
 ## 2.	The Calendars group contains:
-- Calendars group...
-## 3.	…
-- next
+-	The class DailyEvents gives the event type, start and end hour of the event. This class is Serializable and can be converted to string. As it was written above, the daily event is specified by day, month, year, start and end time. The current event type in the system is OffDuty. There are out-of-range exceptions defined for the event – for the start and end time, day of the month, the month and the year. The task level is also marked.
+-	There are two levels of tasks – they are separated on individual/team base and this is given in the TaskLevel enumeration.
+-	The class Calendar inherits the class DailyEvents and implements the ICalendar interface, which allows adding and removing events by giving day, month, year, start and end for the event, and converting the events to string. The calendar is given on a daily base and it is actually list of events for the specified day. There is a counter defined for the events in the given day.
+-	PersonalCalendar inherits the Calendar class and its function is the employee to be checked how many days of paid leave he has and how many are planned.
+-	CompanyCalendar also inherits the Calendar class and its function is to be used for check of the company needs for minimum working hours limit, based on the working days in the week and how many work hours all employees should achieve.
+-	Days of week and months are given as enumeration – in the application they are named as DayOfWeek and Month.
+-	EventType is also enumeration – you can see its description in the previous section.
+
