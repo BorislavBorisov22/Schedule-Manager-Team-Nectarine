@@ -6,10 +6,11 @@
     using DataBaseLibrary;
     using Table;
     using Users;
+    using Teams;
 
     public static class UI
     {
-        private static bool idCorrect, pwdCorrect, adminLogin, userLogin;
+        private static bool adminLogin, userLogin;
 
         public static void ShowMainMenu()
         {
@@ -108,15 +109,21 @@
 
         private static void UserLogin()
         {
-            // create sample worker to test user login
-            RegularWorker rw = new RegularWorker("stamo99", "stamat12345", "Stamat", "Haralambov");
-            DataBase.Save(rw);
+            // create sample team and workes, and save them to test login
+            var teamLeader = new TeamLeaderWorker("IvanIvanov13", "shef4eto1234", "Ivan", "Ivanov");
+            var teamMemeber = new RegularWorker("PepoPepov22", "pepun55555", "Petar", "Petrov");
+            var anotherTeamMember = new RegularWorker("Stamito333", "staM17000.", "Stamatka", "Chereshova");
+            var team = new Team("Nectarine", teamLeader);
+            team.AddMember(teamMemeber);
+            team.AddMember(anotherTeamMember);
+            DataBase.Save(team);
+            DataBase.Save(teamLeader);
+            DataBase.Save(teamMemeber);
+            DataBase.Save(anotherTeamMember);
 
             Console.Write("\nUsername: ");
-            //GetUsername();
             var id = Console.ReadLine();
             Console.Write("Password: ");
-            //GetPassword();
             var pwd = Console.ReadLine();
 
             while (!DataBase.IsValidLoginData(id, pwd))
@@ -131,69 +138,6 @@
         private static void AdminLogin()
         {
             throw new NotImplementedException();
-        }
-
-        private static void GetUsername()
-        {
-            var id = Console.ReadLine();
-            CheckUsername(id);
-        }
-
-        private static void GetPassword()
-        {
-            string pwd = null;
-
-            while (true)
-            {
-                ConsoleKeyInfo cki = Console.ReadKey(true);
-
-                if (cki.Key == ConsoleKey.Enter)
-                {
-                    if (pwd.Length < 4)
-                    {
-                        Console.Write("\nPassword must be at least 4 characters long: ");
-                        GetPassword();
-                    }
-
-                    CheckPassword(pwd);
-                    break;
-                }
-                else if (cki.Key == ConsoleKey.Backspace)
-                {
-                    if (pwd.Length > 0)
-                    {
-                        pwd.Remove(pwd.Length - 1);
-                        Console.Write("\b \b");
-                    }
-                }
-                else
-                {
-                    pwd = pwd + cki.KeyChar;
-                    Console.Write("*");
-                }
-            }
-        }
-
-        private static void CheckUsername(string id)
-        {
-            using (var sr = new StreamReader("login-user.txt"))
-            {
-                if (sr.ReadToEnd().Contains(id))
-                {
-                    idCorrect = true;
-                }
-            }
-        }
-
-        private static void CheckPassword(string pwd)
-        {
-            using (var sr = new StreamReader("login-user.txt"))
-            {
-                if (sr.ReadToEnd().Contains(pwd.ToString()))
-                {
-                    pwdCorrect = true;
-                }
-            }
         }
 
         private static void DisplayScheduleWeek()

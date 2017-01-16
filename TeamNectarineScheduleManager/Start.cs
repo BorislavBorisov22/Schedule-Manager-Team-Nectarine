@@ -15,7 +15,7 @@
         {
             //var teamEvent = peshoLeader.Get()
             //TestDataBase();
-            //UI.ShowMainMenu();
+            UI.ShowMainMenu();
             // Test Team class
             //Test_Team_Class();
             //Test_Workers_And_Admins_Instances();
