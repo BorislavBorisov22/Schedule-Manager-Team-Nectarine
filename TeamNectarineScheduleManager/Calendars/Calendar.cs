@@ -7,27 +7,25 @@
     [Serializable]
     public class Calendar : DailyEvent, ICalendar
     {
-        private IList<DailyEvent>[] day;
+        private IList<DailyEvent>[] daysOfYear;
 
         public Calendar()
         {
-            this.day = new List<DailyEvent>[366];
-            List<DailyEvent> dailySchedule = new List<DailyEvent>();
-            //day = new List<DailyEvents>[366];
+            this.daysOfYear = new List<DailyEvent>[366];
+            var dailySchedule = new List<DailyEvent>();
 
-            List<DailyEvent> daySchedule = new List<DailyEvent>();
-            for (int i = 0; i < 366; i++)
+            for (int i = 0; i < daysOfYear.Length; i++)
             {
-                day[i] = new List<DailyEvent>();
+                daysOfYear[i] = new List<DailyEvent>();
             }
         }
 
         public void AddEvent(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType type)
         {
-            DailyEvent _event = new DailyEvent(dayOfTheMonth, month, year, eventStart, eventEnd, type);
-            DateTime _eventDate = new DateTime(year, month, dayOfTheMonth);
-           // _eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
-            this.day[_eventDate.DayOfYear - 1].Add(_event);
+            var dailyEvent = new DailyEvent(dayOfTheMonth, month, year, eventStart, eventEnd, type);
+            var eventDate = new DateTime(year, month, dayOfTheMonth);
+            // _eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
+            this.daysOfYear[eventDate.DayOfYear - 1].Add(dailyEvent);
         }
 
         public void RemoveEvent(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType eventType)
@@ -38,11 +36,11 @@
             var eventToSearch = new DailyEvent(dayOfTheMonth, month, year, eventStart, eventEnd, eventType);
             int targetIndex = -1;
 
-            for (int i = 0; i < this.day[targetDay].Count; ++i)
+            for (int i = 0; i < this.daysOfYear[targetDay].Count; ++i)
             {
-                bool isMatch = this.day[targetDay][i].Event == eventToSearch.Event &&
-                    this.day[targetDay][i].EventStart == eventToSearch.EventStart &&
-                    this.day[targetDay][i].EventEnd == eventToSearch.EventEnd;
+                bool isMatch = this.daysOfYear[targetDay][i].Event == eventToSearch.Event &&
+                    this.daysOfYear[targetDay][i].EventStart == eventToSearch.EventStart &&
+                    this.daysOfYear[targetDay][i].EventEnd == eventToSearch.EventEnd;
 
                 if (isMatch)
                 {
@@ -53,24 +51,24 @@
 
             if (targetIndex != -1)
             {
-                this.day[targetDay].RemoveAt(targetIndex);
+                this.daysOfYear[targetDay].RemoveAt(targetIndex);
             }
             //_eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
-           
+
             //this.day[_eventDate.DayOfYear - 1].RemoveAt(eventNumber);
         }
 
         public string[] ToString(int dayOfTheMonth, int month, int year)
         {
-            DateTime _eventDate = new DateTime(year, month, dayOfTheMonth);
+            var eventDate = new DateTime(year, month, dayOfTheMonth);
             //_eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
 
-            int numberOfEvents = this.day[_eventDate.DayOfYear - 1].Count;
+            int numberOfEvents = this.daysOfYear[eventDate.DayOfYear - 1].Count;
             string[] result = new string[numberOfEvents];
 
             for (int i = 0; i < numberOfEvents; i++)
             {
-                result[i] = "EventNumber[" + i + "] " + this.day[_eventDate.DayOfYear - 1][i].ToString();
+                result[i] = "EventNumber[" + i + "] " + this.daysOfYear[eventDate.DayOfYear - 1][i].ToString();
             }
 
             return result;

@@ -63,7 +63,7 @@
     <Compile Include="Calendars\Calendar.cs" />
     <Compile Include="Calendars\CompanyCalendar.cs" />
     <Compile Include="Users\ContractType.cs" />
-    <Compile Include="Calendars\DailyEvents.cs" />
+    <Compile Include="Calendars\DailyEvent.cs" />
     <Compile Include="Users\Employee.cs" />
     <Compile Include="Calendars\PersonalCalendar.cs" />
     <Compile Include="Calendars\Month.cs" />

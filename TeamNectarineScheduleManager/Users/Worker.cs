@@ -21,6 +21,8 @@
 
         public Team Team { get; set; }
 
+        public ICalendar PersonalCalendar { get; set; }
+
         public void AddEventToCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt)
         {
             this.personalCalendar.AddEvent(dayOfTheMonth, month, year, eventStart, eventEnd, evt);
