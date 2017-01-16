@@ -5,27 +5,26 @@
     using System.Text;
 
     [Serializable]
-    public class Calendar : DailyEvents, ICalendar
+    public class Calendar : DailyEvent, ICalendar
     {
-        public List<DailyEvents>[] day;
-        private static readonly DateTime[] officialHolidays; // initialize with dates of official holidays
+        private IList<DailyEvent>[] day;
 
         public Calendar()
         {
-            day = new List<DailyEvents>[366];
-            List<DailyEvents> dailySchedule = new List<DailyEvents>();
-            day = new List<DailyEvents>[366];
+            this.day = new List<DailyEvent>[366];
+            List<DailyEvent> dailySchedule = new List<DailyEvent>();
+            //day = new List<DailyEvents>[366];
 
-            List<DailyEvents> daySchedule = new List<DailyEvents>();
+            List<DailyEvent> daySchedule = new List<DailyEvent>();
             for (int i = 0; i < 366; i++)
             {
-                day[i] = new List<DailyEvents>();
+                day[i] = new List<DailyEvent>();
             }
         }
 
-        public void AddEvent(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt)
+        public void AddEvent(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType type)
         {
-            DailyEvents _event = new DailyEvents(dayOfTheMonth, month, year, eventStart, eventEnd, evt);
+            DailyEvent _event = new DailyEvent(dayOfTheMonth, month, year, eventStart, eventEnd, type);
             DateTime _eventDate = new DateTime(year, month, dayOfTheMonth);
            // _eventDate = DateTime.Parse(dayOfTheMonth + "/" + month + "/" + year);
             this.day[_eventDate.DayOfYear - 1].Add(_event);
@@ -36,7 +35,7 @@
 
             DateTime _eventDate = new DateTime(year, month, dayOfTheMonth);
             int targetDay = _eventDate.DayOfYear - 1;
-            var eventToSearch = new DailyEvents(dayOfTheMonth, month, year, eventStart, eventEnd, eventType);
+            var eventToSearch = new DailyEvent(dayOfTheMonth, month, year, eventStart, eventEnd, eventType);
             int targetIndex = -1;
 
             for (int i = 0; i < this.day[targetDay].Count; ++i)

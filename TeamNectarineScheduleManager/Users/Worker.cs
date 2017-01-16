@@ -11,7 +11,7 @@
     public class Worker : Employee, ILoggable, IEmployee, ISchedulable
     {
         private ICalendar personalCalendar;
-        
+
         public Worker(string username, string password, string firstName, string lastName)
             : base(username, password, firstName, lastName)
         {
@@ -19,8 +19,8 @@
             this.personalCalendar = new PersonalCalendar();
         }
 
-        public Team Team { get;  set; }
-       
+        public Team Team { get; set; }
+
         public void AddEventToCalendar(int dayOfTheMonth, int month, int year, string eventStart, string eventEnd, EventType evt)
         {
             this.personalCalendar.AddEvent(dayOfTheMonth, month, year, eventStart, eventEnd, evt);

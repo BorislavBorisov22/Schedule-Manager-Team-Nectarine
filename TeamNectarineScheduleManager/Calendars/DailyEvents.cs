@@ -4,19 +4,19 @@
     using System.Text;
 
     [Serializable]
-    public class DailyEvents
+    public class DailyEvent
     {
-        private EventType _event;
-        private string _eventStart;
-        private string _eventEnd;
+        private EventType eventType;
+        private string eventStart;
+        private string eventEnd;
 
-        public DailyEvents()
+        public DailyEvent()
         {
         }
 
-        protected internal DailyEvents(int dayOfTheMonth, int month, int year, string eventStart = "09:00", string eventEnd = "17:00", EventType currentEvent = EventType.OffDuty)
+        protected internal DailyEvent(int dayOfTheMonth, int month, int year, string eventStart = "09:00", string eventEnd = "17:00", EventType eventType = EventType.OffDuty)
         {
-            this._event = currentEvent;
+            this.eventType = eventType;
             if (int.Parse(eventStart.Substring(0, 2)) < 0 || int.Parse(eventStart.Substring(0, 2)) > 23 ||
                 int.Parse(eventStart.Substring(3, 2)) < 0 || int.Parse(eventStart.Substring(3, 2)) > 59 ||
                 int.Parse(eventEnd.Substring(0, 2)) < 0 || int.Parse(eventEnd.Substring(0, 2)) > 23 ||
@@ -43,7 +43,6 @@
             this.EventStart = eventStart;
             this.EventEnd = eventEnd;
             this.TaskLevel = TaskLevel.Individual;
-
         }
 
         public TaskLevel TaskLevel { get; set; }
@@ -52,36 +51,36 @@
         {
             get
             {
-                return this._event;
+                return this.eventType;
             }
 
             private set
             {
-                this._event = value;
+                this.eventType = value;
             }
         }
         public string EventStart
         {
             get
             {
-                return this._eventStart;
+                return this.eventStart;
             }
 
             private set
             {
-                this._eventStart = value;
+                this.eventStart = value;
             }
         }
         public string EventEnd
         {
             get
             {
-                return this._eventEnd;
+                return this.eventEnd;
             }
 
             private set
             {
-                this._eventEnd = value;
+                this.eventEnd = value;
             }
         }
 
@@ -91,7 +90,7 @@
             //result.Append(this._eventStart.ToString("HH:mm") + " - " + this._eventEnd.ToString("HH:mm"));
             result.Append(string.Format("{0} - {1}", this.EventStart, this.EventEnd));
             result.Append(" ");
-            result.Append(this._event);
+            result.Append(this.eventType);
             return result.ToString();
         }
     }
