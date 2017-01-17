@@ -1,5 +1,19 @@
 # Schedule-Manager-Team-Nectarine (Teamwork project for Telerik Academy C Sharp OOP course)
 
+Team name: Nectarine
+
+Members: 
+ - BorislavBorisov22
+ - Kiril.Kirilov
+ - VenyoVidevVicev
+ - TamaraIlieva
+ - ededdy
+ - tedycholakova
+ - MihailPopov
+ - yoan99
+
+URL Git repository: https://github.com/BogdanDimov/Schedule-Manager-Team-Nectarine.git
+
 The purpose of this program is to serve as a calendar scheduling application for businesses with commonly recurring activities of predefined type as the call-centers for example.
 
 The program consists of classes, interfaces, enumerations and others that are described below and implement the logic of the application. The classes are organized in groups (namespaces) and their role as building blocks of the application is as follows:
