@@ -68,13 +68,7 @@
 
             for (int i = 0; i < numberOfEvents; i++)
             {
-<<<<<<< HEAD
-                // result[i] = "EventNumber[" + i + "] " + this.day[_eventDate.DayOfYear - 1][i].ToString();
-                result[i] = this.day[_eventDate.DayOfYear - 1][i].ToString();
-
-=======
-                result[i] = "EventNumber[" + i + "] " + this.daysOfYear[eventDate.DayOfYear - 1][i].ToString();
->>>>>>> 45c24c04422a0ae50985e63da10e5059f4805c21
+                result[i] = this.daysOfYear[eventDate.DayOfYear - 1][i].ToString();
             }
 
             return result;

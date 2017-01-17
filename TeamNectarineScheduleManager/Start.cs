@@ -14,7 +14,8 @@
     {
         public static void Main()
         {
-           UI.ShowMainMenu();   
+            UI.ShowMainMenu();
+
         }
 
         public static void TeastUsersWorkingWithCalendars()
