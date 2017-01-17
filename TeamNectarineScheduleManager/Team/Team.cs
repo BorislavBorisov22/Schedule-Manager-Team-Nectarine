@@ -159,7 +159,6 @@
             get { return members; }
         }
         
-
         public void NFDBClearMembersAndLeader()
         {
             members.Clear();

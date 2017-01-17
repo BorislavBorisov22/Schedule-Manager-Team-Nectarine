@@ -35,7 +35,7 @@
             }
         }
 
-        // Note: if you need access to the passwod from outside the user class:
+        // Note: if you need access to the password from outside the user class:
         // change the return value of the getter to "this.password"
         public string Password
         {

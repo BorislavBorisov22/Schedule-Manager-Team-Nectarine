@@ -41,7 +41,6 @@
             Console.WriteLine(loisEvents.Length);
             Console.WriteLine(chrisEvents.Length);
             Console.WriteLine(brianEvents.Length);
-
         }
 
         public static void Test_Team_Class()

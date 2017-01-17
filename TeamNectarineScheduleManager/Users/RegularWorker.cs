@@ -9,11 +9,11 @@
 
     public class RegularWorker : Worker, ILoggable, IEmployee
     {
-        public RegularWorker(string username, string password, string firstName, string lastName ,Team team = null)
+        public RegularWorker(string username, string password, string firstName, string lastName, Team team = null)
             : base(username, password, firstName, lastName)
         {
             this.Team = team;
-        }      
+        }
 
         public string TeamInfo
         {
