@@ -8,17 +8,13 @@
     using UserInterface;
     using Calendars;
     using Teams;
+    using System.Text;
 
     public class Start
     {
         public static void Main()
         {
-            //var teamEvent = peshoLeader.Get()
-            //TestDataBase();
-            UI.ShowMainMenu();
-            // Test Team class
-            //Test_Team_Class();
-            //Test_Workers_And_Admins_Instances();
+           UI.ShowMainMenu();   
         }
 
         public static void TeastUsersWorkingWithCalendars()

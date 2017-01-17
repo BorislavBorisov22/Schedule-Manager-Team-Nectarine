@@ -2,7 +2,7 @@
 {
     using TeamNectarineScheduleManager.Teams;
 
-    public interface IRegularWorker
+    public interface IRegularWorker : IWorker
     {
         string TeamInfo { get; }
 

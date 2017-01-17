@@ -10,6 +10,7 @@
         Sick,
         Lunch,
         InTraining,
-        Meeting
+        Meeting,
+        TeamworkDefence
     }
 }

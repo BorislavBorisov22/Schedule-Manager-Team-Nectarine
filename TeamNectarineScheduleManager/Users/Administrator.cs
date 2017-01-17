@@ -14,15 +14,14 @@
             this.UserType = UserType.Admin;
         }
         
-        // methods
-        //public void ShowCompanyCalendar(Day day)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void AddEventToUser(Worker worker, int dayOfMonth, int month, int year, string startTIme, string endTime, EventType evt)
+        {
+            worker.AddEventToCalendar(dayOfMonth,month,year,startTIme,endTime,evt);
+        }
 
-        //public void ShowCompanyCalendar(Week week)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public void RemoveEventFromUser(Worker worker, int dayOfMonth, int month, int year, string startTIme, string endTime, EventType evt)
+        {
+            worker.RemoveEventFromCalendar(dayOfMonth, month, year, startTIme, endTime, evt);
+        }
     }
 }
